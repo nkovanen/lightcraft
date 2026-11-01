@@ -1,0 +1,11 @@
+error: using `clone` on type `Calibration` which implements the `Copy` trait
+   --> crates/ui-egui/src/tests/slider_reset.rs:189:29
+    |
+189 |     unrelated.calibration = before.calibration.clone();
+    |                             ^^^^^^^^^^^^^^^^^^^^^^^^^^ help: try removing the `clone` call: `before.calibration`
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.95.0/index.html#clone_on_copy
+    = note: `-D clippy::clone-on-copy` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::clone_on_copy)]`
+
+error: could not compile `lightcraft-ui-egui` (lib test) due to 1 previous error

@@ -1,0 +1,80 @@
+{
+  "capabilities": {
+    "data": {
+      "corpus": {
+        "custom_dir": false,
+        "images": 0,
+        "pngsuite": 0,
+        "raw_files": 0,
+        "raw_pinned": 0,
+        "raw_pinned_total": 451
+      },
+      "craft_fonts": {
+        "found": false,
+        "set": false
+      }
+    },
+    "gpu": {
+      "error": "not probed: the test step did not run"
+    }
+  },
+  "command": "cargo xtask ci",
+  "failed_step": "clippy",
+  "git": {
+    "branch": "experiment/agent-contribute-pilot-3492",
+    "commit": "150d4057a2f0a717caec6f916dff76596253ba44",
+    "dirty": false
+  },
+  "hardware": [],
+  "machine": {
+    "arch": "x86_64",
+    "cpus": 8,
+    "os": "linux",
+    "os_version": "Ubuntu 24.04.5 LTS, kernel 6.17.0-1033-oem",
+    "ram_available_mb": 16798,
+    "ram_total_gb": 31
+  },
+  "quick": null,
+  "result": "fail",
+  "schema": 1,
+  "seconds": 176.678566676,
+  "skips": [],
+  "started_unix": 1793521986,
+  "steps": [
+    {
+      "name": "fmt",
+      "seconds": 3.105543097,
+      "status": "ok"
+    },
+    {
+      "name": "clippy",
+      "seconds": 173.572892937,
+      "status": "fail"
+    },
+    {
+      "name": "heif",
+      "status": "not run"
+    },
+    {
+      "name": "test",
+      "status": "not run"
+    },
+    {
+      "name": "parity",
+      "status": "not run"
+    },
+    {
+      "name": "layers",
+      "status": "not run"
+    },
+    {
+      "name": "assets",
+      "status": "not run"
+    },
+    {
+      "name": "wasm",
+      "status": "not run"
+    }
+  ],
+  "toolchain": "rustc 1.95.0 (59807616e 2026-04-14)"
+}

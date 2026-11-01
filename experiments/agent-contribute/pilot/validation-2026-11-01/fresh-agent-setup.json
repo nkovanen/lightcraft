@@ -1,0 +1,108 @@
+{
+  "started_at": "2026-11-01T08:34:58.082843+00:00",
+  "prompt": "Go help nkovanen/lightcraft.",
+  "preconditions": {
+    "empty_workspace": "/tmp/agent-contrib-fresh-exact-20261101",
+    "prepared_git_checkout": false,
+    "installed_cli_version": "0.1.0",
+    "installed_cli_path": "/tmp/agent-contrib-install-env/bin/agent-contrib",
+    "path_entry": "/home/nikovanen/.local/bin/agent-contrib",
+    "skill_path": "/tmp/agent-contrib-fresh-exact-20261101/.agents/skills/agent-contribute/SKILL.md",
+    "skill_sha256": "aeab9c59aa99d6a0487280aeed5538d492af2eccc4233646f02328f331bb3b1a",
+    "gh_auth": "Existing user gh authentication; no new credentials supplied",
+    "provider_profile": "GPT-6.1-Sol (codex/gpt-6.1-sol, auto-review, high)"
+  },
+  "visible_workspace_files": [
+    ".agents/skills/agent-contribute/SKILL.md"
+  ],
+  "interventions": [
+    {
+      "id": "I1",
+      "at": "2026-11-01T08:37:32.841728+00:00",
+      "type": "read-only parent-discovery guidance after baseline stopped",
+      "prompt": "You may inspect the public parent repository of this fork to discover candidates. Choose and rank tasks independently, check overlaps, and prepare your own candidate specification; no issue number or task brief will be supplied. This follow-up authorizes only read-only discovery and local specification preparation. Do not implement, push, comment, open PRs, or treat this as upstream maintainer approval."
+    }
+  ],
+  "frozen_distribution_sha256": {
+    "cli.py": "0af7499f7ea87f857be5633fe4f4396757d61bc35cd0c3f134cffbab93c15a19",
+    "core.py": "2190f63070f04abfe526a932dfa902f403f22f372c99ba731bffeac85dd8a595",
+    "instructions.md": "8d4aa20af715cd52f4810d444c79fce74dd61719a02eabc56fa3af6a8d252569",
+    "evidence.schema.json": "e0e1e39d53801c9772279bbdb676f4fb740362b09645c8dbddbb7d4bf1adad7f",
+    "task.schema.json": "580d58c2eac40a772090cf741a0dfeed30fccb75847268d6e06a9172eadc0da9",
+    "__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "__init__.py": "f53cc593a0694580f4f219005d09c5c60c9316063b2b514bfa632b5665718ca7",
+    "adapters/agent-contribute/SKILL.md": "aeab9c59aa99d6a0487280aeed5538d492af2eccc4233646f02328f331bb3b1a"
+  },
+  "excluded_setup_attempts": [
+    {
+      "agent_id": "0edf7534-db2a-437a-b121-30e34ab9be7f",
+      "prompt": "Go help nkovananen/lightcraft.",
+      "reason": "Coordinator repository-name typo; immediately archived. Excluded from the requested exact-prompt test.",
+      "action": "Restart in a new empty directory and new agent context."
+    }
+  ],
+  "agent_id": "6e12c909-aecf-4326-a838-2edb9bbb670b",
+  "workspace_id": "wks_f501ca3561a98294",
+  "baseline_outcome": {
+    "status": "stopped safely without task selection",
+    "source_issue_count": 0,
+    "found_existing_drafts": [
+      1,
+      2
+    ],
+    "ranked_candidates": false,
+    "prepared_specification": false,
+    "implementation_or_publication": false,
+    "agent_requested": "A source issue and authorization for a scoped experiment",
+    "interpretation": "The exact-prompt, zero-coaching path did not achieve autonomous candidate discovery/specification on an issues-disabled fork."
+  },
+  "harness_metadata_note": "Paseo adds normal caller identity/title metadata to agent messages. The explicit task prompt was exactly recorded; no parent conversation, issue number, task brief, repository checkout or candidate was supplied.",
+  "assisted_outcome": {
+    "ranked_candidates": [
+      3479,
+      3517,
+      2254
+    ],
+    "selected_issue": 3479,
+    "selected_scope": "Opt-in 24-hour capture-time presentation with English UI, initially through ui.json",
+    "adjacent_prs_reviewed": [
+      3146
+    ],
+    "rejected_as_already_implemented": [
+      2085
+    ],
+    "existing_fork_work_avoided": [
+      3492
+    ],
+    "discovery": {
+      "complete": true,
+      "issue_count": 651,
+      "issue_scan": {
+        "complete": true,
+        "pages": 14,
+        "errors": []
+      },
+      "open_pr_scan": {
+        "complete": true,
+        "pages": 8,
+        "errors": []
+      },
+      "unexcluded_without_overlap": 117
+    },
+    "contract_sha256": "d9fd0c6857b405cc0c5d9fac8d63c281c6051e97e4cb386557aed3617067cf1c",
+    "schema_valid": true,
+    "live_complete": true,
+    "execution_ready": false,
+    "upstream_submission_ready": false,
+    "fork_completion_ready": false,
+    "observer_verification_exit_code": 1,
+    "implementation_or_publication": false
+  },
+  "artifact_hashes": {
+    "lightcraft-candidates.txt": "b9595f7686678b35e2c482705c0ed017b2317db5b240fe69e8ab4082d5378d99",
+    "lightcraft-3479.task.json": "0ec0ebf5cb681e7180ec7073a76a338fd4ef8d89242d5a1e22bf19c9c2391c7b",
+    "lightcraft-3479.verify.json": "de5d62d587e0ae2340a0246ad10801ab2aecdb227df2806b58b3ff9092961995",
+    "fresh-agent-coordinator-verify.json": "de5d62d587e0ae2340a0246ad10801ab2aecdb227df2806b58b3ff9092961995"
+  },
+  "distribution_unchanged_after_trials": true
+}

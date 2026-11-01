@@ -1,0 +1,41 @@
+{
+  "schema_version": "0.1",
+  "schema_valid": true,
+  "execution_ready": false,
+  "evidence_valid": false,
+  "upstream_submission_ready": false,
+  "fork_completion_ready": false,
+  "approval": {
+    "status": "candidate",
+    "policy_path": ".agent-contrib.json",
+    "policy_commit": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+    "matched_labels": [],
+    "reason": "No explicit agent approval policy exists at the default branch snapshot"
+  },
+  "errors": [
+    "Contract is draft or has unanswered questions",
+    "Reviewed contract requires objective",
+    "Reviewed contract requires behavior_criteria",
+    "Reviewed contract requires code_locations",
+    "Reviewed contract requires constraints",
+    "Reviewed contract requires prohibited_changes",
+    "Reviewed contract requires validation",
+    "Reviewed contract requires allowed paths and explicit prohibited paths",
+    "Explicit local execution authorization is missing",
+    "Execution target repository is invalid"
+  ],
+  "evidence_errors": [
+    "No execution evidence, independent review or human signoff provided"
+  ],
+  "evidence_trust": "self-attested; identity and truth are not authenticated",
+  "publication": "This CLI never publishes. Readiness is not authorization to push or open a PR.",
+  "contract_sha256": "bcc99e072841ce651de63d9ac39e13dd2be195890ff1093ac4d5d43689b6130b",
+  "live_complete": true,
+  "duplicates": [],
+  "execution_authorization": {
+    "mode": "pending",
+    "target_repository": "",
+    "authorized_by": "",
+    "authorization_evidence": ""
+  }
+}

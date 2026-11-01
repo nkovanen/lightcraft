@@ -1,5 +1,7 @@
 # POC execution report — 2026-11-01
 
+This is the original implementation-stage record. The [later final-commit validation](validation-2026-11-01/REPORT.md) captures an actual full-CI exit status and a fresh-agent trial.
+
 The protocol implementation and portable adapter are working. The independent
 implementation agent consumed the real task contract and produced a tested
 Calibration reset change on a separate branch. The final product review is accepted; full LightCraft validation is

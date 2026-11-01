@@ -1,0 +1,223 @@
+{
+  "schema_version": "0.1",
+  "status": "draft",
+  "source": {
+    "repository": "storytold/lightcraft",
+    "default_branch": "main",
+    "commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "fetched_at": "2026-11-01T08:40:56.581828+00:00",
+    "instructions_sha256": "10ce7e1c4821246376ff53f61380968a73d43ce04191124ac9031bb258989c66",
+    "issue": 3479,
+    "issue_url": "https://github.com/storytold/lightcraft/issues/3479",
+    "issue_updated_at": "2026-10-31T16:49:09Z",
+    "issue_sha256": "08f49a31c9ce5117f414b39676ba4ab00cda281185184f70f19f11eba6b988c3"
+  },
+  "scope": {
+    "allowed_paths": [
+      "crates/ui-egui/src/state.rs",
+      "crates/ui-egui/src/state/settings.rs",
+      "crates/ui-egui/src/i18n.rs",
+      "crates/ui-egui/src/i18n/tests.rs",
+      "crates/ui-egui/src/app.rs",
+      "crates/ui-egui/src/headless/tests.rs",
+      "crates/ui-egui/src/panels/right/info.rs",
+      "docs/localization.md",
+      "docs/gaps.md",
+      "docs/parity-checklist.md",
+      "docs/whats-new.md"
+    ],
+    "prohibited_paths": [
+      ".github/*",
+      "xtask/*",
+      "Cargo.toml",
+      "Cargo.lock",
+      "assets/*",
+      "contributors/*",
+      "crates/catalog/*",
+      "crates/meta/*",
+      "crates/engine/*",
+      "crates/pipeline/*",
+      "crates/raw/*",
+      "apps/*",
+      "docs/brand/*",
+      "docs/user/*"
+    ]
+  },
+  "objective": "Candidate proposal, part of storytold/lightcraft#3479: add an opt-in, persisted 24-hour capture-time display preference independent of UI language, initially configurable in ui.json. Preserve existing defaults. This is a local specification only, not accepted upstream scope or execution authorization.",
+  "behavior_criteria": [
+    {
+      "id": "C1",
+      "description": "Proposed configuration (agent design choice, pending review): ui.json settings.timeFormat accepts language (default) and 24h. Missing preference retains the current language-dependent output; existing saved language and unrelated preferences survive loading and round trips. Unknown future values fall back to language without discarding unrelated settings."
+    },
+    {
+      "id": "C2",
+      "description": "With English UI and timeFormat=24h, a valid capture timestamp 2022-03-30T22:11:11 is shown in the real Info panel as March 30, 2022 at 22:11:11, with no AM/PM. Test midnight 00:00:00, noon 12:00:00 and 23:59:59 as well. English labels and date wording remain English."
+    },
+    {
+      "id": "C3",
+      "description": "With timeFormat=language the current formatter output is unchanged, including English 12-hour AM/PM and existing non-English output. With explicit 24h, non-English date wording stays in the chosen language and valid full clock values remain 24-hour."
+    },
+    {
+      "id": "C4",
+      "description": "The persisted preference reaches actual Info-panel rendering after loading ui.json and app logic/UI passes. A headless regression must exercise UiState deserialization, the app activation path and the visible Captured value, rather than testing an unused helper. Re-loading language restores the old presentation."
+    },
+    {
+      "id": "C5",
+      "description": "Date-only, partial dates and malformed or non-ASCII input retain their existing display behavior; missing seconds follow existing behavior. No panic, timezone conversion, metadata rewrite or catalog mutation. Formatting a photo must leave its capture timestamp unchanged."
+    },
+    {
+      "id": "C6",
+      "description": "Document the configuration, default and limits in docs/localization.md; record a partial #3479 entry in localization gap 21 and LR-BEHAV-LOCALIZE, plus an opt-in release note. Do not claim OS regional settings, number separators, all timestamp surfaces or the full issue are implemented. Record before/after LightCraft screenshots of the real Info panel and inspect the output."
+    }
+  ],
+  "code_locations": [
+    "crates/ui-egui/src/i18n.rs:445 display_time delegates English to lightcraft_catalog::dates::display_time and uses localized date labels otherwise.",
+    "crates/catalog/src/dates.rs:168 display_time hard-codes English AM/PM (read-only reference; do not change its API or default).",
+    "crates/ui-egui/src/state/settings.rs:105 AppSettings is saved under ui.json settings; serde defaults and lenient enum readers provide the persistence pattern.",
+    "crates/ui-egui/src/state.rs:23 UiState owns language and AppSettings.",
+    "crates/ui-egui/src/app.rs:586 logic and :631 ui activate the language before presentation; proposed preference must be installed alongside it without leaking between app instances.",
+    "crates/ui-egui/src/panels/right/info.rs:122 the visible Captured value calls crate::i18n::display_time.",
+    "crates/ui-egui/src/i18n/tests.rs and crates/ui-egui/src/headless/tests.rs: formatter, persistence and real UI regression coverage.",
+    "docs/localization.md; docs/gaps.md gap 21; docs/parity-checklist.md LR-BEHAV-LOCALIZE; docs/whats-new.md."
+  ],
+  "constraints": [
+    "User follow-up 4500cc25-8ae7-4ff7-96ad-7ddd7442924d authorizes public read-only discovery and local specification preparation only. Do not implement, execute checkout build scripts, push, comment or open PRs.",
+    "All criteria and config spelling above are a candidate proposal chosen by the agent; they are not upstream acceptance or final-revision human signoff.",
+    "Pure Rust, no new dependencies or unsafe; use the existing workspace chrono for any date/time parsing or conversion; no hand-rolled calendar algorithms.",
+    "Keep the override opt-in with existing defaults and image rendering untouched. Follow never-panic input handling and existing layered architecture.",
+    "Future test names may be chosen freely but all new regression tests must include regional_time_format so the proposed focused argv runs actual tests.",
+    "Before future execution, independently review checkout build scripts and exact argv; run full cargo xtask ci as required by AGENTS.md (stricter than the quick gate in CLAUDE.md). Record all internal skips honestly; exit 0 with skips is not complete protocol evidence.",
+    "Read-only source was fetched selectively at the pinned commit; plan/ is local-only and absent from the public tree. No claim to have read private/local planning files or run the app.",
+    "An independent diff/log review and final-revision human signoff are required only after a separately authorized implementation; no such evidence exists now."
+  ],
+  "prohibited_changes": [
+    "No general OS regional-settings detection, decimal/unit separator work, new Settings UI, new shortcuts, catalog or metadata format changes, or global default change.",
+    "No changes to rendering/exports, process versions, camera/raw code, CI/xtask gates, release automation, dependencies, assets or contributor identities.",
+    "No unrelated formatter bug fixes or cleanup, and no claim that this partial scope closes #3479.",
+    "No implementation or publication under the current discovery-only mandate."
+  ],
+  "validation": [
+    {
+      "id": "V1",
+      "kind": "tests",
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "lightcraft-ui-egui",
+        "--lib",
+        "regional_time_format"
+      ],
+      "success": "Future implementation only: exit 0; at least four executed regression tests covering persistence/defaults, formatter boundaries, hostile/partial inputs, and actual Info-panel rendering; zero internal skips. Demonstrate the English 24-hour regression fails on the pinned base. Not run during this specification task."
+    },
+    {
+      "id": "V2",
+      "kind": "check",
+      "argv": [
+        "cargo",
+        "check",
+        "-p",
+        "lightcraft-web",
+        "--target",
+        "wasm32-unknown-unknown"
+      ],
+      "success": "Future implementation only: exit 0 with the shared preference and UI path compiling for WASM. No platform-specific dependency added. Not run now."
+    },
+    {
+      "id": "V3",
+      "kind": "check",
+      "argv": [
+        "cargo",
+        "xtask",
+        "ci"
+      ],
+      "success": "Future implementation only: all required gates pass; retain target/ci/report.json and target/ci/summary.md and exact test/skip counts. Any internal skip remains an unresolved completion gate rather than being counted as executed coverage. Not run now."
+    }
+  ],
+  "prerequisites": [
+    {
+      "id": "P1",
+      "description": "Complete parent CLI discovery and inspect selected issue and policies.",
+      "status": "satisfied",
+      "evidence": "agent-contrib 0.1.0 discover storytold/lightcraft: complete=true, 651 issues, 14 issue pages, 8 open-PR pages, no scan errors. inspect #3479 and prepare also complete; source 07301cbd1e1cab5c152228891d9c9ed87e263003; policy missing."
+    },
+    {
+      "id": "P2",
+      "description": "Read selected issue, current source, public architecture/localization documents and available pinned instructions.",
+      "status": "satisfied",
+      "evidence": "Fetched pinned files under /tmp/lightcraft-source-review. Confirmed no timeFormat setting, English AM/PM implementation, and real Info-panel caller. Local-only plan documents unavailable and must be checked in a future implementation checkout if present."
+    },
+    {
+      "id": "P3",
+      "description": "Confirm independent 24-hour partial scope and proposed config/default/input semantics before execution.",
+      "status": "pending",
+      "evidence": "Issue expressly requests 24-hour English and allows an initial ui.json setting, but does not prescribe spelling, date wording or malformed-value fallback. Proposed criteria need review; no maintainer acceptance inferred."
+    },
+    {
+      "id": "P4",
+      "description": "Refresh manual ownership and overlap checks, including adjacent PR #3146, before any implementation.",
+      "status": "pending",
+      "evidence": "CLI reports no duplicate PR for #3479. Timeline has only label events and a bot related-issue note, no claim. Additional open/closed PR search finds #3146: its patch changes i18n.rs language-default comments, locale-tag tests and localization/release docs; it does not add time-format configuration or change display_time. Shared-file integration remains a review gate, not proof of semantic duplication. Searches and 50 recent closed PRs are bounded, not proof of exclusive ownership."
+    },
+    {
+      "id": "P5",
+      "description": "Obtain explicit implementation authorization with intended source and target, then inspect status/remotes and create a dedicated branch/worktree.",
+      "status": "blocked",
+      "evidence": "Current user instruction explicitly prohibits implementation and all GitHub writes. Intended future fork is nkovanen/lightcraft; upstream storytold/lightcraft has no opt-in agent approval policy. No execution mode authorized."
+    },
+    {
+      "id": "P6",
+      "description": "Review validation scripts and provision Rust/WASM and any full-CI capabilities needed for honest zero-skip evidence.",
+      "status": "pending",
+      "evidence": "Validation argv is proposed, not executed. Need baseline checks, real UI screenshot protocol, sufficient full-CI capabilities, and final independent review/signoff after future implementation."
+    }
+  ],
+  "approval": {
+    "status": "candidate",
+    "policy_path": ".agent-contrib.json",
+    "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "matched_labels": [],
+    "reason": "No explicit agent approval policy exists at the default branch snapshot"
+  },
+  "execution": {
+    "mode": "pending",
+    "target_repository": "nkovanen/lightcraft",
+    "authorized_by": "",
+    "authorization_evidence": "Paseo user follow-up message 4500cc25-8ae7-4ff7-96ad-7ddd7442924d: authorizes only read-only parent discovery and local specification; explicitly forbids implementation, pushes, comments and PRs. This is evidence of the current restriction, not execution authority."
+  },
+  "discovery": {
+    "complete": true,
+    "duplicate_prs": [],
+    "warnings": [
+      "All rankings are deterministic heuristics, not model predictions.",
+      "Manual source/timeline review rejected #2085 as already implemented; CLI open-PR scan alone did not establish this.",
+      "Adjacent open PR #3146 shares i18n and documentation files; see P4. No ownership claim was made and no comments were posted."
+    ]
+  },
+  "done": {
+    "criteria_ids": [
+      "C1",
+      "C2",
+      "C3",
+      "C4",
+      "C5",
+      "C6"
+    ],
+    "validation_ids": [
+      "V1",
+      "V2",
+      "V3"
+    ],
+    "independent_review_required": true,
+    "human_signoff_required": true
+  },
+  "evidence": {
+    "required": true,
+    "contract_hash_algorithm": "sha256"
+  },
+  "questions": [
+    "Review proposed settings.timeFormat language/24h partial scope, persistence fallback, display wording and malformed-input behavior before treating them as accepted criteria.",
+    "Refresh ownership/source/overlap, especially adjacent open PR #3146, at execution time.",
+    "Implementation remains forbidden by the current instruction. A separate mandate must identify the execution target and scope; upstream policy is currently missing."
+  ]
+}

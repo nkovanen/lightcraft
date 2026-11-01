@@ -94,3 +94,5 @@ and `good first issue` labels never authorize an agent contribution. Without thi
 policy, discovered work remains a candidate. The tool does not install the policy
 or create labels. See [the workflow](docs/workflow.md#maintainer-integration) for
 the maintainer's remaining responsibilities.
+
+Latest follow-up: [final-commit CI, fresh-agent trial and unrelated-repository results](pilot/validation-2026-11-01/REPORT.md). The bare-request fork trial required one parent-discovery hint; PR #2 full CI failed at clippy. Both remain drafts.

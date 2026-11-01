@@ -1,0 +1,141 @@
+LightCraft candidate discovery and specification — 2026-11-01
+
+Mandate and provenance
+The requested target is nkovanen/lightcraft, a public fork of storytold/lightcraft.
+The follow-up message 4500cc25-8ae7-4ff7-96ad-7ddd7442924d authorized public
+parent discovery and local specification preparation only. It explicitly
+prohibited implementation, pushes, comments and PRs. No GitHub writes, source
+edits, build/test execution, implementation branch or implementation commit
+were made. Local JSON/text artifacts and read-only source copies were created.
+
+Installed agent-contrib version: 0.1.0; task schema: 0.1.
+Parent default branch snapshot: 07301cbd1e1cab5c152228891d9c9ed87e263003.
+CLI parent discover reported complete=true and no scan errors: 651 open issues,
+14 issue-list pages, 8 open-PR pages. 117 issues had no CLI-detected exclusions
+or open-PR overlap. These are heuristic candidates, not approvals. Neither the
+fork nor parent has a .agent-contrib.json approval policy at this snapshot.
+
+Ranking (agent assessment, not a measured success probability)
+1. #3479 — Independent 24-hour time presentation with English UI.
+   https://github.com/storytold/lightcraft/issues/3479
+   Selected as a bounded first slice of the issue: opt-in configuration in
+   ui.json, which the reporter explicitly permits. The issue requests English
+   with 24-hour time. Current source confirms English display_time delegates to
+   catalog dates::display_time, which hard-codes AM/PM. AppSettings has serde
+   defaults and existing lenient preference readers; the real Info panel calls
+   i18n::display_time. This supports a focused persistence/format/UI regression
+   without cameras, a corpus, model weights or an OS settings API.
+   Scope/risk: moderate; persistence, formatter and app activation must connect.
+   Risks: hostile dates, old preferences and thread-local presentation state.
+   Proposed config spelling and edge-case rules are agent design choices,
+   awaiting scope review. This is Part of #3479, not a full-issue solution.
+   CLI inspect/prepare/verify: complete; no detected duplicate PR or exclusion.
+   Timeline: no assignee or human ownership claim observed, only labels and a
+   related-issue bot comment. This does not prove exclusive ownership.
+   Manual open/closed PR searches: issue number returned no PR; searches for
+   regional, 24-hour and time format identified adjacent #3146. Its actual patch
+   changes host language selection, i18n default-language comments and locale
+   tag tests; it does not add time-format settings or change display_time.
+   Shared files/docs: i18n.rs, i18n/tests.rs, localization.md and whats-new.md.
+   Recheck and integrate these changes before any future implementation.
+   https://github.com/storytold/lightcraft/pull/3146
+
+2. #3517 — Folder exclusion by individual path or common folder name.
+   https://github.com/storytold/lightcraft/issues/3517
+   Useful for photographers keeping archives under an imported/watched tree.
+   CLI inspect: complete, no exclusions or detected overlapping open PRs.
+   Timeline: labels and bot links to #271/#276; no ownership claim observed.
+   Ranked below #3479 because the short request leaves several product choices
+   open: prevent scanning vs hide existing records, absolute path vs basename,
+   subtree matching, persistence, and what the on/off button restores. Likely
+   crosses scanning, watched folders and UI. Relevant implementation was not
+   traced; difficulty remains provisional. Read related issues and define
+   these semantics before preparing an executable contract.
+
+3. #2254 — Keep About contributor credits fresh.
+   https://github.com/storytold/lightcraft/issues/2254
+   CLI inspect: complete, no exclusions or detected overlapping open PRs.
+   The issue itself asks for a maintainer choice among release checklist,
+   scheduled workflow and staleness gates; it reports a private script obstacle.
+   Current docs/contributors.md confirms the compiled snapshot and opt-in names
+   but no longer contains the refreshing section quoted by the older issue.
+   Current AGENTS.md prohibits hand editing contributors.json and restricts CI
+   changes. This makes a quick snapshot edit inappropriate; automation/script
+   availability and maintainer-owned release policy remain unverified.
+   Timeline links #2255 (personal credit entry, closed) and shared-app issues;
+   no work claim observed in the issue's comments. Lower implementation
+   suitability until scope/dependencies are settled.
+
+Rejected or deferred examples
+- #2085 (browser Auto language): an open issue that is already implemented.
+  Pinned web.rs install_browser_language and i18n tests match its requested
+  behavior. Timeline contains a prior claim, closed PRs #2089/#2181, and a
+  2026-10-30 comment reporting the fix in v0.15.0. Do not duplicate it.
+  https://github.com/storytold/lightcraft/issues/2085
+- #2813 (makepkg !lto): explicitly downstream AUR packaging; the requested
+  PKGBUILD is outside the selected repository. Do not change upstream defaults.
+  https://github.com/storytold/lightcraft/issues/2813
+- #3492 (reset/preview controls): existing nkovanen fork draft #2 already covers
+  the Calibration reset slice. Do not duplicate that work.
+  https://github.com/nkovanen/lightcraft/pull/2
+- #3161 (master pages rename): not selected; current README says Book is absent.
+  The reported app/feature needs confirmation before a LightCraft change.
+
+Selected specification
+lightcraft-3479.task.json was generated by agent-contrib prepare, then filled
+locally with 6 proposed behavior criteria, concrete allowed/prohibited paths,
+source locations, compatibility constraints, 3 exact proposed validation argv,
+prerequisites and definition-of-done ID lists. status remains draft, execution
+mode remains pending, and target_repository remains nkovanen/lightcraft.
+No claim of upstream acceptance, execution authorization or completed tests.
+
+Proposed behavior, for review
+- settings.timeFormat values language (existing default) and 24h; persisted
+  independently from language. Unknown values retain other preferences.
+- English capture time 2022-03-30T22:11:11 displays as
+  March 30, 2022 at 22:11:11 with the override enabled.
+- Existing defaults, translated date wording, photo data and image pixels stay
+  unchanged. Exercise midnight, noon, missing seconds, partial dates, malformed
+  text, old settings and a real Info-panel render.
+- No OS regional detection, number separator preferences, Settings UI, new
+  dependency, catalog change or complete #3479 claim. Any future expansion
+  needs a separately reviewed scope.
+- New focused regressions use the regional_time_format filter; WASM check and
+  full cargo xtask ci are also proposed. They were not run now. A future visible
+  change requires before/after screenshots from LightCraft and visual review.
+
+Overlap and source checks are bounded observations
+The CLI inspects open PRs; manual work additionally read shortlisted timelines
+and the 50 most recently updated closed parent PRs, then searched open/closed
+PRs by issue and topic and reviewed adjacent #3146's patch. This does not cover
+all private/in-flight work or every file of all 700+ open PRs. Refresh before
+execution. Source files were selectively fetched by immutable commit and read;
+no repository code was executed. Public plan/ files are unavailable because
+plan/ is gitignored; do not claim those local plans were reviewed.
+
+Verification result
+agent-contrib verify exited 1 as expected for a pending draft.
+schema_valid: true
+execution_ready: false
+evidence_valid: false
+fork_completion_ready: false
+upstream_submission_ready: false
+live_complete: true
+contract_sha256: d9fd0c6857b405cc0c5d9fac8d63c281c6051e97e4cb386557aed3617067cf1c
+Errors: Contract is draft or has unanswered questions; Prerequisites are not satisfied with evidence; Explicit local execution authorization is missing; Execution mode is pending.
+Evidence gates: No execution evidence, independent review or human signoff provided.
+The verifier checks consistency; evidence is self-attested and identities are
+not authenticated. A readiness result never grants publication permission.
+
+Readiness is deliberately pending under the current instruction. Preparing this
+specification does not require an implementation mandate; executing it would.
+
+Local evidence inventory
+- lightcraft-3479.task.json: proposed contract.
+- lightcraft-3479.verify.json: actual CLI verification result.
+- /tmp/lightcraft-parent-discovery-20261101.json: full CLI parent discovery.
+- /tmp/lightcraft-inspect-{2085,2813,2254,3517,3479,3161}.json: CLI issue reads.
+- /tmp/lightcraft-timeline-{2085,2813,2254,3517,3479}.json: manual timeline reads.
+- /tmp/lightcraft-parent-recent-closed-prs.json: 50 recent closed parent PRs.
+- /tmp/lightcraft-3479-overlap-search.json: bounded open/closed topic searches.
+- /tmp/lightcraft-source-review/: selected pinned source and specification files.

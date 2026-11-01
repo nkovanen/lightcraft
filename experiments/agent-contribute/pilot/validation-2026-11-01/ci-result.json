@@ -1,0 +1,22 @@
+{
+  "head": "150d4057a2f0a717caec6f916dff76596253ba44",
+  "worktree_clean_at_start": true,
+  "argv": [
+    "cargo",
+    "xtask",
+    "ci"
+  ],
+  "started_at": "2026-11-01T08:32:58.321108+00:00",
+  "environment": {
+    "CARGO_TARGET_DIR": "target/agent-validation-final",
+    "CARGO_BUILD_JOBS": "4",
+    "RUST_TEST_THREADS": "2",
+    "RAYON_NUM_THREADS": "2"
+  },
+  "exit_code": 1,
+  "finished_at": "2026-11-01T08:36:02.987960+00:00",
+  "head_after": "150d4057a2f0a717caec6f916dff76596253ba44",
+  "worktree_clean_after": true,
+  "log_sha256": "1a8129021ad03119b28f21f8ac15eda6d31a0316e215ce8e19d2c21f9bb086f3",
+  "report_exists": true
+}

@@ -1,0 +1,61 @@
+{
+  "schema_version": "0.1",
+  "status": "draft",
+  "source": {
+    "repository": "pallets/click",
+    "default_branch": "main",
+    "commit": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+    "fetched_at": "2026-11-01T08:38:37.703167+00:00",
+    "instructions_sha256": "366e469f21442e1eb6a851348b48543d9bf2bfef94357c9132fefcc2e4570a42",
+    "issue": 373,
+    "issue_url": "https://github.com/pallets/click/issues/373",
+    "issue_updated_at": "2025-01-06T08:31:11Z",
+    "issue_sha256": "bd05f1c902dda5a7fec78a3d1d5dcbdc2a6bdf3aba457ef387cff3eb2021cf4b"
+  },
+  "scope": {
+    "allowed_paths": [],
+    "prohibited_paths": []
+  },
+  "objective": "",
+  "behavior_criteria": [],
+  "code_locations": [],
+  "constraints": [],
+  "prohibited_changes": [],
+  "validation": [],
+  "prerequisites": [],
+  "approval": {
+    "status": "candidate",
+    "policy_path": ".agent-contrib.json",
+    "policy_commit": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+    "matched_labels": [],
+    "reason": "No explicit agent approval policy exists at the default branch snapshot"
+  },
+  "execution": {
+    "mode": "pending",
+    "target_repository": "",
+    "authorized_by": "",
+    "authorization_evidence": ""
+  },
+  "discovery": {
+    "complete": true,
+    "duplicate_prs": [],
+    "warnings": [
+      "All rankings are deterministic heuristics, not model predictions."
+    ]
+  },
+  "done": {
+    "criteria_ids": [],
+    "validation_ids": [],
+    "independent_review_required": true,
+    "human_signoff_required": true
+  },
+  "evidence": {
+    "required": true,
+    "contract_hash_algorithm": "sha256"
+  },
+  "questions": [
+    "Review source issue and pinned repository instructions before defining objective and acceptance.",
+    "Identify code locations, constraints, prohibited changes, prerequisites and exact validation argv.",
+    "Record explicit execution authorization separately from upstream approval."
+  ]
+}
