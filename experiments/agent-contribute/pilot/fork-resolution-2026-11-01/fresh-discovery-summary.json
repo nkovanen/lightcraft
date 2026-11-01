@@ -1,0 +1,211 @@
+{
+  "requested_repository": "nkovanen/lightcraft",
+  "issue_source_repository": "storytold/lightcraft",
+  "proposed_target_repository": "nkovanen/lightcraft",
+  "resolution_provenance": {
+    "metadata_reads": [
+      {
+        "endpoint": "repos/nkovanen/lightcraft",
+        "observed": {
+          "full_name": "nkovanen/lightcraft",
+          "fork": true,
+          "has_issues": false,
+          "parent": {
+            "full_name": "storytold/lightcraft"
+          }
+        },
+        "fetched_at": "2026-11-01T09:21:34.537236+00:00"
+      },
+      {
+        "endpoint": "repos/storytold/lightcraft",
+        "observed": {
+          "full_name": "storytold/lightcraft",
+          "fork": false,
+          "has_issues": true
+        },
+        "fetched_at": "2026-11-01T09:21:35.053053+00:00"
+      }
+    ],
+    "reason": "disabled fork tracker; reading the immediate parent tracker",
+    "execution_authority": "none"
+  },
+  "commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+  "fetched_at": "2026-11-01T09:21:35.468672+00:00",
+  "complete": true,
+  "errors": [],
+  "provenance": {
+    "pulls_scan": {
+      "complete": true,
+      "pages": 8,
+      "errors": []
+    },
+    "labels_scan": {
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    },
+    "policy_state": "missing",
+    "proposed_target_pulls": {
+      "repository": "nkovanen/lightcraft",
+      "endpoint": "repos/nkovanen/lightcraft/pulls?state=open",
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    }
+  },
+  "issue_scan": {
+    "complete": true,
+    "pages": 14,
+    "errors": []
+  },
+  "issue_count": 654,
+  "sample_rejected_existing_work": [
+    {
+      "number": 3492,
+      "reference": "nkovanen/lightcraft#3492",
+      "issue_url": "https://github.com/storytold/lightcraft/issues/3492",
+      "untrusted_title": "Some tools missing preview toggle and also reset option for the sliders",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "exclusions": [],
+      "duplicates": [
+        {
+          "number": 2,
+          "url": "https://github.com/nkovanen/lightcraft/pull/2",
+          "reason": "Explicit reference to this issue"
+        },
+        {
+          "number": 1,
+          "url": "https://github.com/nkovanen/lightcraft/pull/1",
+          "reason": "Explicit reference to this issue"
+        }
+      ],
+      "complete": true,
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    },
+    {
+      "number": 3457,
+      "reference": "nkovanen/lightcraft#3457",
+      "issue_url": "https://github.com/storytold/lightcraft/issues/3457",
+      "untrusted_title": "Show in Folders: a photo hidden under the top of a collapsed stack is not shown",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "exclusions": [
+        "duplicate"
+      ],
+      "duplicates": [
+        {
+          "number": 3504,
+          "url": "https://github.com/storytold/lightcraft/pull/3504",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 3463,
+          "url": "https://github.com/storytold/lightcraft/pull/3463",
+          "reason": "Explicit reference to this issue"
+        },
+        {
+          "number": 3348,
+          "url": "https://github.com/storytold/lightcraft/pull/3348",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 3164,
+          "url": "https://github.com/storytold/lightcraft/pull/3164",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2441,
+          "url": "https://github.com/storytold/lightcraft/pull/2441",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2289,
+          "url": "https://github.com/storytold/lightcraft/pull/2289",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2281,
+          "url": "https://github.com/storytold/lightcraft/pull/2281",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2174,
+          "url": "https://github.com/storytold/lightcraft/pull/2174",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1732,
+          "url": "https://github.com/storytold/lightcraft/pull/1732",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1699,
+          "url": "https://github.com/storytold/lightcraft/pull/1699",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1243,
+          "url": "https://github.com/storytold/lightcraft/pull/1243",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1153,
+          "url": "https://github.com/storytold/lightcraft/pull/1153",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 641,
+          "url": "https://github.com/storytold/lightcraft/pull/641",
+          "reason": "Potential title/checklist overlap; review manually"
+        }
+      ],
+      "complete": true,
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "argv": [
+    "cargo",
+    "xtask",
+    "ci"
+  ],
+  "cwd": "/home/nikovanen/.paseo/worktrees/2w8rbbj7/agent-contribute-pilot",
+  "git_head": "b11d21de4422542534518dfa77c21914ed78bbd7",
+  "git_tree": "6e5fde21cebc049d91f720065633ba83633ca183",
+  "clean_before": true,
+  "started_at": "2026-11-01T09:13:10.785274+00:00",
+  "environment": {
+    "CARGO_TARGET_DIR": "target/agent-fork-iteration",
+    "CARGO_BUILD_JOBS": "4",
+    "RUST_TEST_THREADS": "2",
+    "RAYON_NUM_THREADS": "2"
+  },
+  "finished_at": "2026-11-01T09:44:56.597723+00:00",
+  "seconds": 1905.8121443018317,
+  "exit_code": 1,
+  "clean_after": true,
+  "git_head_after": "b11d21de4422542534518dfa77c21914ed78bbd7",
+  "log_sha256": "d5b8c29ddf91cb1968c5e6766dfa1eb149b588f77b406bcdca936678e5d88a84",
+  "captured_report_files": [
+    {
+      "path": "ci-report.json",
+      "sha256": "48a90fbb9ddd22a1efe2d366cd1294a27ed6f972a850ddcd923c493e1bb41c92"
+    },
+    {
+      "path": "ci-skips-heif.jsonl",
+      "sha256": "baf594f5dce1a7cceb79f4803a5e91133329c1863fdc1f7dcaaf0ec39294a127"
+    },
+    {
+      "path": "ci-skips-test.jsonl",
+      "sha256": "a2f1b8ab98ffe760331277fd869326c06a1761b5ac40131f67cc919c2967827a"
+    },
+    {
+      "path": "ci-summary.md",
+      "sha256": "84e77b34b54c535897a91eca80e486847bdb874f6394e1284667bd1dbfda537d"
+    }
+  ]
+}

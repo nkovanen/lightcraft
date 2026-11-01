@@ -1,0 +1,89 @@
+{
+  "schema_version": "0.1",
+  "schema_valid": true,
+  "execution_ready": false,
+  "evidence_valid": false,
+  "upstream_submission_ready": false,
+  "fork_completion_ready": false,
+  "approval": {
+    "status": "candidate",
+    "policy_path": ".agent-contrib.json",
+    "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "matched_labels": [],
+    "reason": "No explicit agent approval policy exists at the default branch snapshot"
+  },
+  "errors": [
+    "Contract is draft or has unanswered questions",
+    "Prerequisites are not satisfied with evidence",
+    "Explicit local execution authorization is missing",
+    "Execution mode is pending"
+  ],
+  "evidence_errors": [
+    "No execution evidence, independent review or human signoff provided"
+  ],
+  "evidence_trust": "self-attested; identity and truth are not authenticated",
+  "publication": "This CLI never publishes. Readiness is not authorization to push or open a PR.",
+  "contract_sha256": "24b96eeed78f5ce2ed58f5e413dd4ede4c14dfe32a1d8fd762f32a1b74d3ea9c",
+  "requested_repository": null,
+  "issue_source_repository": "storytold/lightcraft",
+  "proposed_target_repository": "nkovanen/lightcraft",
+  "resolution_provenance": {
+    "requested_repository": "original request not stored in schema 0.1",
+    "issue_source_repository": "contract.source.repository",
+    "proposed_target_repository": "contract.execution.target_repository",
+    "execution_authority": "separate reviewed assertion; never inferred"
+  },
+  "live_provenance": {
+    "pulls": {
+      "complete": true,
+      "pages": 8,
+      "errors": []
+    },
+    "labels": {
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    },
+    "policy_state": "missing",
+    "policy": null,
+    "proposed_target_metadata": {
+      "endpoint": "repos/nkovanen/lightcraft",
+      "observed": {
+        "full_name": "nkovanen/lightcraft",
+        "fork": true,
+        "has_issues": false
+      },
+      "fetched_at": "2026-11-01T09:28:20.943389+00:00"
+    },
+    "proposed_target_pulls": {
+      "repository": "nkovanen/lightcraft",
+      "endpoint": "repos/nkovanen/lightcraft/pulls?state=open",
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    }
+  },
+  "source_resolution_provenance": {
+    "metadata_reads": [
+      {
+        "endpoint": "repos/storytold/lightcraft",
+        "observed": {
+          "full_name": "storytold/lightcraft",
+          "fork": false,
+          "has_issues": true
+        },
+        "fetched_at": "2026-11-01T09:28:04.333445+00:00"
+      }
+    ],
+    "reason": "requested repository has an issue tracker",
+    "execution_authority": "none"
+  },
+  "live_complete": true,
+  "duplicates": [],
+  "execution_authorization": {
+    "mode": "pending",
+    "target_repository": "nkovanen/lightcraft",
+    "authorized_by": "",
+    "authorization_evidence": ""
+  }
+}

@@ -1,0 +1,51 @@
+     Running tests/it/main.rs (target/agent-fork-iteration/debug/deps/it-31903ecf0ed8ff7c)
+
+running 32 tests
+test accessibility::a_slider_value_field_is_named_value_and_describes_how_to_use_it ... ok
+test accessibility::canvas_handles_are_named_with_their_position ... ok
+test accessibility::canvas_tool_sliders_are_reachable_with_tab ... ok
+test accessibility::import_button_describes_its_shortcut_as_this_platform_writes_it ... ok
+test accessibility::screen_reader_increment_moves_a_slider ... ok
+test accessibility::tab_walks_the_right_panels_top_to_bottom ... ok
+test accessibility::tool_strip_and_toolbar_buttons_are_named_by_label_with_the_shortcut_as_description ... ok
+test dialog_role::a_library_that_could_not_be_opened_is_a_modal_alert_dialog ... ok
+test accessibility::every_interactive_node_has_a_name_in_every_view_and_tool ... ok
+test dialog_role::an_alert_carries_what_it_says_as_its_description ... ok
+test dialog_role::settings_is_a_dialog_too ... FAILED
+test dialog_role::the_quit_prompt_and_a_settings_notice_are_modal_alert_dialogs ... ok
+test dialog_role::every_dialog_is_a_modal_dialog_with_its_title ... ok
+test docking_workflows::a_tab_dropped_on_a_dock_group_stacks_adds_a_column_or_joins_by_where_it_lands ... ok
+test docking_workflows::dragging_a_group_by_its_bar_moves_the_whole_group ... ok
+test docking_workflows::invalid_docking_requests_preserve_layout_and_selected_tool ... ok
+test docking_workflows::real_drag_float_close_reopen_and_state_reload_keep_photo_tool_mode ... ok
+test grid_names::a_date_header_is_named_with_the_text_it_shows ... ok
+test landmarks::an_empty_filmstrip_is_still_a_landmark_and_says_why ... ok
+test landmarks::the_bars_are_toolbars_and_the_panels_are_landmarks_in_detail ... ok
+test landmarks::the_grid_is_the_main_landmark_in_the_photo_grid ... ok
+test local_places::a_built_in_place_offers_no_rename_or_move ... ok
+test local_places::a_kept_folder_renames_from_its_real_name ... ok
+test photo_name::the_photo_in_detail_is_named_with_its_file ... ok
+test photo_name::the_photo_in_detail_says_its_rating_and_flag_as_the_grid_does ... ok
+test sidebar_names::a_disclosure_triangle_names_its_row ... ok
+test sidebar_names::a_keyword_list_triangle_names_its_keyword ... ok
+test docking_workflows::docking_renders_real_photo_panels_default_floating_and_redocked ... ok
+test sidebar_names::a_month_triangle_names_its_year ... ok
+test thumb_size_slider::a_screen_reader_increment_and_decrement_move_the_thumbnail_size_one_step ... ok
+test thumb_size_slider::the_arrow_keys_step_the_thumbnail_size_and_keep_the_focus_on_it ... ok
+test thumb_size_slider::the_thumbnail_size_is_a_slider_with_its_value_and_range ... ok
+
+failures:
+
+---- dialog_role::settings_is_a_dialog_too stdout ----
+
+thread 'dialog_role::settings_is_a_dialog_too' (2976887) panicked at /home/nikovanen/.cargo/git/checkouts/egui-057e9a0485eda407/6d518fc/crates/epaint/src/text/fonts.rs:846:9:
+No glyph for "ქ" (U+10E5) in Name("semibold"). Installed fonts: ["Inter-SemiBold", "Ubuntu-Light", "egui-icons", "NotoEmoji-Regular", "emoji-icon-font"]. Install a font that has it, add a `FontProvider` or `GlyphRasterizer` that can draw it, or allow tofu with `MissingGlyphPolicy::Tofu`.
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    dialog_role::settings_is_a_dialog_too
+
+test result: FAILED. 31 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 11.54s
+
+error: test failed, to rerun pass `-p lightcraft-ui-egui --test it`

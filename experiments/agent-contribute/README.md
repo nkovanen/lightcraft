@@ -116,4 +116,4 @@ policy, discovered work remains a candidate. The tool does not install the polic
 or create labels. See [the workflow](docs/workflow.md#maintainer-integration) for
 the maintainer's remaining responsibilities.
 
-Latest follow-up: [final-commit CI, fresh-agent trial and unrelated-repository results](pilot/validation-2026-11-01/REPORT.md). That historical bare-request fork trial required one parent-discovery hint; PR #2 full CI failed at clippy. Both remain drafts.
+Latest follow-up: [CLI 0.2.0 fork resolution, the uncoached fresh-context trial and exact-commit CI](pilot/fork-resolution-2026-11-01/REPORT.md). The [earlier trial and failed clippy run](pilot/validation-2026-11-01/REPORT.md) remain as historical evidence. Both fork PRs remain drafts.

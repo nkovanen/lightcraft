@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "cargo",
+    "test",
+    "-p",
+    "lightcraft-ui-egui",
+    "--lib",
+    "section_reset"
+  ],
+  "cwd": "/home/nikovanen/.paseo/worktrees/2w8rbbj7/agent-contribute-pilot",
+  "git_head": "b11d21de4422542534518dfa77c21914ed78bbd7",
+  "git_tree": "6e5fde21cebc049d91f720065633ba83633ca183",
+  "clean_before": true,
+  "started_at": "2026-11-01T09:06:07.490456+00:00",
+  "environment": {
+    "CARGO_TARGET_DIR": "target/agent-fork-iteration",
+    "CARGO_BUILD_JOBS": "4",
+    "RUST_TEST_THREADS": "2",
+    "RAYON_NUM_THREADS": "2"
+  },
+  "finished_at": "2026-11-01T09:13:10.769896+00:00",
+  "seconds": 423.27744361083023,
+  "exit_code": 0,
+  "clean_after": true,
+  "git_head_after": "b11d21de4422542534518dfa77c21914ed78bbd7",
+  "log_sha256": "c98973476281f324d820706e2b3bb79d4259d0c0fd32fb691f4f6bd5202cbf31"
+}

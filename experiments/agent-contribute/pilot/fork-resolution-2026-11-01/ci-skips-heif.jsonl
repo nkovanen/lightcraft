@@ -1,0 +1,4 @@
+{"need":"corpus","reason":"/home/nikovanen/.paseo/worktrees/2w8rbbj7/agent-contribute-pilot/crates/codecs/../../corpus/pngsuite absent","test":"corpus::corpus_pngsuite","binary":"it","location":"crates/codecs/tests/it/corpus.rs:60"}
+{"need":"corpus","reason":"/home/nikovanen/.paseo/worktrees/2w8rbbj7/agent-contribute-pilot/crates/codecs/../../corpus/images absent","test":"corpus::corpus_images_decode","binary":"it","location":"crates/codecs/tests/it/corpus.rs:34"}
+{"need":"corpus","reason":"/home/nikovanen/.paseo/worktrees/2w8rbbj7/agent-contribute-pilot/crates/codecs/../../corpus/raw absent","test":"corpus::corpus_raw_is_routed","binary":"it","location":"crates/codecs/tests/it/corpus.rs:86"}
+{"need":"system","reason":"no system ICC profiles","test":"corpus::system_icc_profiles","binary":"it","location":"crates/codecs/tests/it/corpus.rs:106"}
