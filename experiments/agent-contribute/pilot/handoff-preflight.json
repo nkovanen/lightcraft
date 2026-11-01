@@ -1,0 +1,30 @@
+{
+  "schema_version": "0.1",
+  "schema_valid": true,
+  "execution_ready": true,
+  "evidence_valid": false,
+  "upstream_submission_ready": false,
+  "fork_completion_ready": false,
+  "approval": {
+    "status": "candidate",
+    "policy_path": ".agent-contrib.json",
+    "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "matched_labels": [],
+    "reason": "No explicit agent approval policy exists at the default branch snapshot"
+  },
+  "errors": [],
+  "evidence_errors": [
+    "No execution evidence, independent review or human signoff provided"
+  ],
+  "evidence_trust": "self-attested; identity and truth are not authenticated",
+  "publication": "This CLI never publishes. Readiness is not authorization to push or open a PR.",
+  "contract_sha256": "f454e02ed384511ffd715c3413dfb1839f9a06c80298f7836d7af2936cd871be",
+  "live_complete": true,
+  "duplicates": [],
+  "execution_authorization": {
+    "mode": "fork-experiment",
+    "target_repository": "nkovanen/lightcraft",
+    "authorized_by": "nkovanen",
+    "authorization_evidence": "Initiating user request, 2026-11-01: \"If feasible, implement the selected feature or bug fix in a separate branch and open a draft PR against our fork only.\" Source is the actual project conversation, not a GitHub issue. This permits the fork pilot; it is not upstream maintainer approval or a final-code review."
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "report_kind": "pre-commit product execution, not completion attestation",
+  "task_contract_sha256": "f454e02ed384511ffd715c3413dfb1839f9a06c80298f7836d7af2936cd871be",
+  "base_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+  "branch": "experiment/agent-contribute-pilot-3492",
+  "diff_sha256": "684d1f95b190175aa0b7e6222db3dfd9d252f49bb8afbc87368e06e05c6776bc",
+  "focused_validation": {
+    "argv": [
+      "cargo",
+      "test",
+      "-p",
+      "lightcraft-ui-egui",
+      "--lib",
+      "section_reset"
+    ],
+    "exit_code": 0,
+    "seconds": 115.17991328239441,
+    "started_unix": 1793518648.9438684,
+    "executed_test_counts": [
+      3
+    ]
+  },
+  "focused_result": "3 passed, 0 failed, 0 ignored; no internal skips logged",
+  "negative_regressions": [
+    "Initial three tests failed without the implementation",
+    "Other-header negative test failed against the shared-header version"
+  ],
+  "independent_review": {
+    "reviewer": "Claude Sonnet 5.5",
+    "outcome": "Calibration-only diff accepted; full CI and final human sign-off remain pending"
+  },
+  "screenshot": {
+    "path": "target/pilot-3492-evidence/calibration-reset-menu.png",
+    "sha256": "ed5fdd52fe389fd85f1c562bff5af42ca3f0e030e1c1bce5744153f4bb35badd",
+    "retention": "Generated artifact in ignored product worktree; regenerate using the test's LIGHTCRAFT_TEST_SHOTS option. No media committed.",
+    "visually_reviewed": true
+  },
+  "repository_ci": "Interrupted while queued for shared CI slot; no full-gate result",
+  "human_signoff": "pending",
+  "upstream_approval": "candidate"
+}

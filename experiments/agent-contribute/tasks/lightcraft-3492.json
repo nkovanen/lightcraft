@@ -1,0 +1,174 @@
+{
+  "schema_version": "0.1",
+  "status": "reviewed",
+  "source": {
+    "repository": "storytold/lightcraft",
+    "default_branch": "main",
+    "commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "fetched_at": "2026-11-01T07:18:49.658150+00:00",
+    "instructions_sha256": "10ce7e1c4821246376ff53f61380968a73d43ce04191124ac9031bb258989c66",
+    "issue": 3492,
+    "issue_url": "https://github.com/storytold/lightcraft/issues/3492",
+    "issue_updated_at": "2026-10-31T18:13:51Z",
+    "issue_sha256": "5769f2db38d6edbeb51f494bf34ac07935378f5f0a208691e0db052587d1fe3e"
+  },
+  "objective": "Expose the existing undoable Calibration reset through the Edit panel section-header context menu; this is a scoped part of issue #3492, not a full resolution.",
+  "behavior_criteria": [
+    {
+      "id": "AC1",
+      "description": "With a photo active and changed Calibration controls, its header context menu offers localized Reset Section; activation restores Calibration control defaults through develop.resetSection."
+    },
+    {
+      "id": "AC2",
+      "description": "Calibration reset preserves exposure, camera-profile state and unrelated settings; Undo restores the prior Calibration values as one command operation."
+    },
+    {
+      "id": "AC3",
+      "description": "Collapse/expand, the preview eye and Solo Mode still work. Reset does not toggle a section or reset all edits. Any shared section menu uses only valid section IDs."
+    },
+    {
+      "id": "AC4",
+      "description": "At least one executed regression drives the real menu action and fails without the implementation. Test another section if using the shared helper. A zero-test filtered run is a failure."
+    },
+    {
+      "id": "AC5",
+      "description": "Record a headless screenshot artifact path and SHA-256, focused test output, full cargo xtask ci result, independent review and final-revision sign-off. Missing or skipped required checks leave completion pending."
+    }
+  ],
+  "code_locations": [
+    "crates/ui-egui/src/panels/edit/sliders.rs",
+    "crates/ui-egui/src/panels/edit.rs",
+    "crates/engine/src/cmd/develop.rs",
+    "crates/develop/src/lib.rs",
+    "crates/ui-egui/src/tests/panels.rs",
+    "crates/ui-egui/src/tests/slider_reset.rs",
+    "docs/parity-checklist.md"
+  ],
+  "constraints": [
+    "Read pinned root AGENTS.md, CLAUDE.md, README, docs/architecture.md and .github/PULL_REQUEST_TEMPLATE.md; local-only plan/ is absent. Use the stricter full cargo xtask ci gate where guidance differs.",
+    "Product code is pure Rust. Reuse develop.resetSection, existing localized Reset Section and tr(); preserve stored settings and current process-version behavior.",
+    "No production panics or unsafe. Use checked input handling, existing UI/test conventions, one task ID per commit and accurate parity/whats-new/gap updates.",
+    "Use isolated branch experiment/agent-contribute-pilot-3492, target/agent-pilot, bounded build jobs and headless UI tests with procedural data; no OS synthetic input or personal photo libraries.",
+    "Only permitted PR target is nkovanen/lightcraft base main. Upstream approval is pending; never push or submit to storytold/lightcraft.",
+    "Inspect overlap PRs #1554 and #3155 before publication; both touch Edit-panel code and #3155 touches sliders.rs. Reviewed topic/file overlap does not prove duplicated behavior.",
+    "The JSON task is canonical. Markdown is explanatory. Independent review must check actual code/contract rather than trust this scope-review status."
+  ],
+  "prohibited_changes": [
+    "No AGENTS.md, CLAUDE.md, CI, Cargo manifests/lockfiles, dependencies or asset changes.",
+    "No Point Color, Color Grading or Defringe preview/reset controls in this scoped pilot.",
+    "No catalog version, render-cache version, process-version, selection, default-value or unrelated behavior changes.",
+    "No automatic merge, upstream publication, fork issue creation, credentials or production secrets."
+  ],
+  "validation": [
+    {
+      "id": "focused-tests",
+      "kind": "tests",
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "lightcraft-ui-egui",
+        "--lib",
+        "section_reset"
+      ],
+      "success": "Exit 0; at least one executed test, zero failed/skipped; actual test names and counts recorded. Regression fails with the implementation removed."
+    },
+    {
+      "id": "repository-ci",
+      "kind": "tests",
+      "argv": [
+        "cargo",
+        "xtask",
+        "ci"
+      ],
+      "success": "All required gate steps pass; inspect target/ci/report.json for skips. Record unavailable capabilities honestly; incomplete required stages prevent completion."
+    },
+    {
+      "id": "diff-hygiene",
+      "kind": "check",
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "success": "Exit 0, no whitespace errors; this does not replace behavioral tests or diff scope review."
+    }
+  ],
+  "prerequisites": [
+    {
+      "id": "rust-toolchain",
+      "description": "Rust/Cargo 1.95 or newer and dependencies available for the UI build.",
+      "status": "satisfied",
+      "evidence": "Coordinator observed rustc 1.95.0 and cargo 1.95.0; dependency fetching/build started successfully on 2026-11-01."
+    },
+    {
+      "id": "base-inspected",
+      "description": "Inspect existing section menu and existing Calibration reset semantics at pinned source base.",
+      "status": "satisfied",
+      "evidence": "At source.commit, section() exposes only Solo Mode in its context menu; Section::Calibration exists and reset_section resets its controls. Profile settings are a separate Section::Profile."
+    }
+  ],
+  "approval": {
+    "status": "candidate",
+    "policy_path": ".agent-contrib.json",
+    "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "matched_labels": [],
+    "reason": "No explicit agent approval policy exists at the default branch snapshot"
+  },
+  "execution": {
+    "mode": "fork-experiment",
+    "target_repository": "nkovanen/lightcraft",
+    "authorized_by": "nkovanen",
+    "authorization_evidence": "Initiating user request, 2026-11-01: \"If feasible, implement the selected feature or bug fix in a separate branch and open a draft PR against our fork only.\" Source is the actual project conversation, not a GitHub issue. This permits the fork pilot; it is not upstream maintainer approval or a final-code review."
+  },
+  "discovery": {
+    "complete": true,
+    "duplicate_prs": [],
+    "warnings": [
+      "All rankings are deterministic heuristics, not model predictions.",
+      "Scoped subset of multiple-issues request; does not close #3492.",
+      "Targeted changed-file scans found overlap with PR1554 and PR3155. Neither describes this reset behavior; refresh before publication.",
+      "No upstream agent opt-in policy exists; local fork authorization remains separate."
+    ]
+  },
+  "done": {
+    "criteria_ids": [
+      "AC1",
+      "AC2",
+      "AC3",
+      "AC4",
+      "AC5"
+    ],
+    "validation_ids": [
+      "focused-tests",
+      "repository-ci",
+      "diff-hygiene"
+    ],
+    "independent_review_required": true,
+    "human_signoff_required": true
+  },
+  "evidence": {
+    "required": true,
+    "contract_hash_algorithm": "sha256"
+  },
+  "questions": [],
+  "scope": {
+    "allowed_paths": [
+      "crates/ui-egui/src/panels/edit/sliders.rs",
+      "crates/ui-egui/src/tests/*",
+      "crates/ui-egui/src/tests.rs",
+      "docs/parity-checklist.md",
+      "docs/whats-new.md",
+      "docs/gaps.md"
+    ],
+    "prohibited_paths": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      ".github/*",
+      "Cargo.toml",
+      "Cargo.lock",
+      "**/Cargo.toml",
+      "assets/*"
+    ]
+  }
+}

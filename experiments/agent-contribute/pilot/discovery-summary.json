@@ -1,0 +1,564 @@
+{
+  "report_version": "0.1",
+  "command": [
+    "agent-contrib",
+    "discover",
+    "storytold/lightcraft"
+  ],
+  "exit_code": 0,
+  "source_repository": "storytold/lightcraft",
+  "source_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+  "fetched_at": "2026-11-01T07:18:17.318464+00:00",
+  "complete": true,
+  "issue_count": 651,
+  "issue_scan": {
+    "complete": true,
+    "pages": 14,
+    "errors": []
+  },
+  "provenance": {
+    "pulls_scan": {
+      "complete": true,
+      "pages": 8,
+      "errors": []
+    },
+    "labels_scan": {
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    },
+    "policy_state": "missing"
+  },
+  "approval_counts": {
+    "candidate": 651
+  },
+  "raw_output_sha256": "e66238e4e42bf92ce330566f4385602c34044aa8db7e98a5db88756ed68e1390",
+  "raw_output_bytes": 1371425,
+  "raw_output_retention": "Local temporary run output; this bounded summary retains the selected records and scan provenance. Rerun the command to refresh.",
+  "selected_issue": 3492,
+  "selection_reason": "Explicit task 3457 already has a fixing PR; select a bounded Calibration-reset slice of 3492 with existing command and localization. Rank is heuristic and code review supplied the scope.",
+  "selected_records": [
+    {
+      "number": 3457,
+      "untrusted_title": "Show in Folders: a photo hidden under the top of a collapsed stack is not shown",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [
+        {
+          "number": 3504,
+          "url": "https://github.com/storytold/lightcraft/pull/3504",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 3463,
+          "url": "https://github.com/storytold/lightcraft/pull/3463",
+          "reason": "Explicit reference to this issue"
+        },
+        {
+          "number": 3348,
+          "url": "https://github.com/storytold/lightcraft/pull/3348",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 3164,
+          "url": "https://github.com/storytold/lightcraft/pull/3164",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2441,
+          "url": "https://github.com/storytold/lightcraft/pull/2441",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2289,
+          "url": "https://github.com/storytold/lightcraft/pull/2289",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2281,
+          "url": "https://github.com/storytold/lightcraft/pull/2281",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2174,
+          "url": "https://github.com/storytold/lightcraft/pull/2174",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1732,
+          "url": "https://github.com/storytold/lightcraft/pull/1732",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1699,
+          "url": "https://github.com/storytold/lightcraft/pull/1699",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1243,
+          "url": "https://github.com/storytold/lightcraft/pull/1243",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1153,
+          "url": "https://github.com/storytold/lightcraft/pull/1153",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 641,
+          "url": "https://github.com/storytold/lightcraft/pull/641",
+          "reason": "Potential title/checklist overlap; review manually"
+        }
+      ],
+      "complete": true,
+      "exclusions": [
+        "duplicate"
+      ],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    },
+    {
+      "number": 3492,
+      "untrusted_title": "Some tools missing preview toggle and also reset option for the sliders",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [],
+      "complete": true,
+      "exclusions": [],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "unknown",
+          "explanation": "No model or empirical success estimate; manual review required"
+        }
+      }
+    },
+    {
+      "number": 3417,
+      "untrusted_title": "Photo filter | Unrated - Zero stars photos filter missing",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [
+        {
+          "number": 3507,
+          "url": "https://github.com/storytold/lightcraft/pull/3507",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 3433,
+          "url": "https://github.com/storytold/lightcraft/pull/3433",
+          "reason": "Explicit reference to this issue"
+        },
+        {
+          "number": 3169,
+          "url": "https://github.com/storytold/lightcraft/pull/3169",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 3018,
+          "url": "https://github.com/storytold/lightcraft/pull/3018",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2931,
+          "url": "https://github.com/storytold/lightcraft/pull/2931",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2877,
+          "url": "https://github.com/storytold/lightcraft/pull/2877",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2875,
+          "url": "https://github.com/storytold/lightcraft/pull/2875",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2862,
+          "url": "https://github.com/storytold/lightcraft/pull/2862",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2597,
+          "url": "https://github.com/storytold/lightcraft/pull/2597",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2464,
+          "url": "https://github.com/storytold/lightcraft/pull/2464",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2043,
+          "url": "https://github.com/storytold/lightcraft/pull/2043",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1732,
+          "url": "https://github.com/storytold/lightcraft/pull/1732",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1684,
+          "url": "https://github.com/storytold/lightcraft/pull/1684",
+          "reason": "Potential title/checklist overlap; review manually"
+        }
+      ],
+      "complete": true,
+      "exclusions": [],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    },
+    {
+      "number": 3404,
+      "untrusted_title": "[BUG] Unused entries break offline builds",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [
+        {
+          "number": 3414,
+          "url": "https://github.com/storytold/lightcraft/pull/3414",
+          "reason": "Explicit reference to this issue"
+        }
+      ],
+      "complete": true,
+      "exclusions": [],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    },
+    {
+      "number": 3426,
+      "untrusted_title": "XMP sidecar import warns 'CropAngle, CropBottom, … not imported' when crs:HasCrop is missing",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [
+        {
+          "number": 3431,
+          "url": "https://github.com/storytold/lightcraft/pull/3431",
+          "reason": "Explicit reference to this issue"
+        },
+        {
+          "number": 2940,
+          "url": "https://github.com/storytold/lightcraft/pull/2940",
+          "reason": "Potential title/checklist overlap; review manually"
+        }
+      ],
+      "complete": true,
+      "exclusions": [],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    },
+    {
+      "number": 3191,
+      "untrusted_title": "[Bug] WhiteLevel DNG tag is written with an incompatible data type",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [
+        {
+          "number": 3199,
+          "url": "https://github.com/storytold/lightcraft/pull/3199",
+          "reason": "Explicit reference to this issue"
+        },
+        {
+          "number": 3197,
+          "url": "https://github.com/storytold/lightcraft/pull/3197",
+          "reason": "Explicit reference to this issue"
+        },
+        {
+          "number": 2904,
+          "url": "https://github.com/storytold/lightcraft/pull/2904",
+          "reason": "Potential title/checklist overlap; review manually"
+        }
+      ],
+      "complete": true,
+      "exclusions": [],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    },
+    {
+      "number": 3508,
+      "untrusted_title": "ISO not detected from RW2 raw file",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [
+        {
+          "number": 3518,
+          "url": "https://github.com/storytold/lightcraft/pull/3518",
+          "reason": "Explicit reference to this issue"
+        },
+        {
+          "number": 3512,
+          "url": "https://github.com/storytold/lightcraft/pull/3512",
+          "reason": "Explicit reference to this issue"
+        }
+      ],
+      "complete": true,
+      "exclusions": [],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    },
+    {
+      "number": 3381,
+      "untrusted_title": "Windows: window title bar stays blank after launch until a menu is opened",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [
+        {
+          "number": 3218,
+          "url": "https://github.com/storytold/lightcraft/pull/3218",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 3203,
+          "url": "https://github.com/storytold/lightcraft/pull/3203",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2974,
+          "url": "https://github.com/storytold/lightcraft/pull/2974",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2174,
+          "url": "https://github.com/storytold/lightcraft/pull/2174",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 1961,
+          "url": "https://github.com/storytold/lightcraft/pull/1961",
+          "reason": "Potential title/checklist overlap; review manually"
+        }
+      ],
+      "complete": true,
+      "exclusions": [],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "possible",
+          "explanation": "Dependency language present"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    },
+    {
+      "number": 3513,
+      "untrusted_title": "[Feature Request] [LightCraft] Rejected photo suppression shortcut",
+      "approval": {
+        "status": "candidate",
+        "policy_path": ".agent-contrib.json",
+        "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+        "matched_labels": [],
+        "reason": "No explicit agent approval policy exists at the default branch snapshot"
+      },
+      "duplicates": [
+        {
+          "number": 3428,
+          "url": "https://github.com/storytold/lightcraft/pull/3428",
+          "reason": "Potential title/checklist overlap; review manually"
+        },
+        {
+          "number": 2894,
+          "url": "https://github.com/storytold/lightcraft/pull/2894",
+          "reason": "Potential title/checklist overlap; review manually"
+        }
+      ],
+      "complete": true,
+      "exclusions": [],
+      "ranking": {
+        "difficulty": {
+          "value": "unknown",
+          "explanation": "Code scope has not been independently reviewed"
+        },
+        "ambiguity": {
+          "value": "medium",
+          "explanation": "Description exists; acceptance still needs review"
+        },
+        "dependencies": {
+          "value": "unknown",
+          "explanation": "No dependency language; prerequisites are unverified"
+        },
+        "success_likelihood": {
+          "value": "low",
+          "explanation": "Duplicate, exclusion, complexity or ambiguity risk"
+        }
+      }
+    }
+  ],
+  "manual_overlap_reviews": [
+    {
+      "pr": 1554,
+      "url": "https://github.com/storytold/lightcraft/pull/1554",
+      "method": "GitHub paginated changed-files API plus PR description",
+      "finding": "Edit panel/layout overlap, not a described reset action; merge risk remains."
+    },
+    {
+      "pr": 3155,
+      "url": "https://github.com/storytold/lightcraft/pull/3155",
+      "method": "GitHub paginated changed-files API plus PR description",
+      "finding": "Includes crates/ui-egui/src/panels/edit/sliders.rs; dense-row work, not a described reset action. Merge risk remains."
+    }
+  ],
+  "limits": [
+    "No claim that all PR patches were read; explicit references, topic identifiers and likely overlaps were screened.",
+    "No approval policy exists upstream; every discovered issue remains candidate.",
+    "An earlier live discovery attempt was stopped after more than three minutes; review found regex backtracking and fixes were exercised in this successful run."
+  ]
+}
