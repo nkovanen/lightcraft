@@ -149,3 +149,113 @@ fn a_typed_value_still_applies_after_a_reset() {
     assert_eq!(value(&h, "light.exposure"), 0.5);
     assert_eq!(h.app.session.undo.len() - undo, 1, "one undo step");
 }
+
+/// AC-PILOT-3492: the header menu must dispatch the section reset, not a whole-photo reset.
+#[test]
+fn section_reset_from_calibration_header_preserves_other_edits_and_is_undoable() {
+    let mut h = edit_panel();
+    h.size.y = 1400.0;
+    h.app.ui.open_sections = vec!["calibration".into()];
+    h.step();
+    ask(&mut h, "engine.execute", json!({"command": "develop.profile", "params": {"id": "lc.neutral", "amount": 70.0}}));
+    set(&mut h, "light.exposure", 1.25);
+    for spec in lightcraft_develop::controls::in_section(lightcraft_develop::Section::Calibration) {
+        set(&mut h, spec.id, 25.0);
+    }
+    let id = h.app.session.selection.active.unwrap();
+    let before = h.app.session.develop_of(id).unwrap();
+    let undo = h.app.session.undo.len();
+    ask(&mut h, "ui.clickWidget", json!({"id": "section:calibration", "button": "right"}));
+    assert!(h.painted_text().iter().any(|text| text == "Reset Section"));
+    assert_eq!(h.app.ui.open_sections, ["calibration"]);
+    if let Some(dir) = std::env::var_os("LIGHTCRAFT_TEST_SHOTS") {
+        h.app.services.png = Some(Box::new(|img| {
+            lightcraft_codecs::encode_png(&lightcraft_codecs::EncodeImage::rgba8(img), &lightcraft_codecs::EncodeMeta::default()).unwrap()
+        }));
+        h.app.services.write = Some(Box::new(|path, bytes| std::fs::write(path, bytes).map_err(|e| e.to_string())));
+        h.app.services.write_new = Some(Box::new(lightcraft_engine::export::write_file_new));
+        ask(&mut h, "ui.screenshot", json!({"path": std::path::Path::new(&dir).join("calibration-reset-menu.png"), "headless": true}));
+        let inspect = h.request("ui.inspect", json!({}), T);
+        assert_eq!(inspect["ok"], true, "{inspect}");
+        std::fs::write(std::path::Path::new(&dir).join("calibration-reset-menu.inspect.json"), serde_json::to_vec_pretty(&inspect).unwrap()).unwrap();
+    }
+    ask(&mut h, "ui.clickWidget", json!({"id": "sectionMenu:reset"}));
+    for spec in lightcraft_develop::controls::in_section(lightcraft_develop::Section::Calibration) {
+        assert_eq!(value(&h, spec.id), spec.default, "{}", spec.id);
+    }
+    assert_eq!(value(&h, "light.exposure"), 1.25);
+    assert_eq!(h.app.session.develop_of(id).unwrap().profile, before.profile);
+    let mut unrelated = (*h.app.session.develop_of(id).unwrap()).clone();
+    unrelated.calibration = before.calibration.clone();
+    assert_eq!(&unrelated, before.as_ref(), "every setting outside Calibration is preserved");
+    assert_eq!(h.app.session.undo.len() - undo, 1);
+    assert_eq!(h.app.ui.open_sections, ["calibration"]);
+    assert!(!h.app.ui.single_panel);
+    ask(&mut h, "engine.execute", json!({"command": "edit.undo"}));
+    assert_eq!(h.app.session.develop_of(id).unwrap(), before);
+}
+
+/// The pilot must not expose resets for differently grouped panels or Defringe.
+#[test]
+fn section_reset_is_not_offered_on_other_headers_and_their_menus_preserve_edits() {
+    let mut h = edit_panel();
+    h.size.y = 1400.0;
+    h.app.ui.open_sections.clear();
+    h.step();
+    for (control, edited) in [
+        ("light.exposure", 1.25),
+        ("color.vibrance", 25.0),
+        ("effects.clarity", 25.0),
+        ("vignette.amount", -25.0),
+        ("grain.amount", 25.0),
+        ("detail.sharpenAmount", 25.0),
+        ("optics.defringePurple", 25.0),
+    ] {
+        set(&mut h, control, edited);
+    }
+    let id = h.app.session.selection.active.unwrap();
+    let before = h.app.session.develop_of(id).unwrap();
+    let undo = h.app.session.undo.len();
+    for section in ["light", "color", "effects", "detail", "optics"] {
+        ask(&mut h, "ui.clickWidget", json!({"id": format!("section:{section}"), "button": "right"}));
+        assert!(!h.app.widgets.iter().any(|(id, _)| id == "sectionMenu:reset"), "{section}");
+        assert!(!h.painted_text().iter().any(|text| text == "Reset Section"), "{section}");
+        assert!(h.app.widgets.iter().any(|(id, _)| id == "sectionMenu:solo"), "{section}: original menu retained");
+        ask(&mut h, "ui.key", json!({"key": "Escape"}));
+        assert_eq!(h.app.session.develop_of(id).unwrap(), before, "{section}: no settings changed");
+        assert_eq!(h.app.session.undo.len(), undo, "{section}: no history change");
+        assert_eq!(h.app.session.selection.active, Some(id));
+        assert!(h.app.ui.open_sections.is_empty());
+        assert!(!h.app.ui.single_panel);
+    }
+}
+
+#[test]
+fn section_reset_keeps_header_disclosure_eye_and_solo_mode_working() {
+    let mut h = edit_panel();
+    h.size.y = 1400.0;
+    h.app.ui.open_sections.clear();
+    h.step();
+    ask(&mut h, "ui.clickWidget", json!({"id": "section:calibration"}));
+    assert_eq!(h.app.ui.open_sections, ["calibration"]);
+    ask(&mut h, "ui.hoverWidget", json!({"id": "section:calibration"}));
+    ask(&mut h, "ui.clickWidget", json!({"id": "sectionEye:calibration"}));
+    let id = h.app.session.selection.active.unwrap();
+    assert!(!h.app.session.develop_of(id).unwrap().section_enabled("calibration"));
+    set(&mut h, "calibration.redHue", 25.0);
+    ask(&mut h, "ui.clickWidget", json!({"id": "section:calibration", "button": "right"}));
+    ask(&mut h, "ui.clickWidget", json!({"id": "sectionMenu:reset"}));
+    assert_eq!(value(&h, "calibration.redHue"), 0.0);
+    assert!(!h.app.session.develop_of(id).unwrap().section_enabled("calibration"));
+    assert_eq!(h.app.ui.open_sections, ["calibration"]);
+    ask(&mut h, "ui.clickWidget", json!({"id": "sectionEye:calibration"}));
+    assert!(h.app.session.develop_of(id).unwrap().section_enabled("calibration"));
+    ask(&mut h, "ui.clickWidget", json!({"id": "section:calibration"}));
+    assert!(h.app.ui.open_sections.is_empty());
+    ask(&mut h, "ui.clickWidget", json!({"id": "section:calibration", "button": "right"}));
+    ask(&mut h, "ui.clickWidget", json!({"id": "sectionMenu:solo"}));
+    assert!(h.app.ui.single_panel);
+    ask(&mut h, "ui.clickWidget", json!({"id": "section:light"}));
+    ask(&mut h, "ui.clickWidget", json!({"id": "section:calibration"}));
+    assert_eq!(h.app.ui.open_sections, ["calibration"]);
+}

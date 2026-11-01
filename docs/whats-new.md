@@ -1,5 +1,12 @@
 # What's new in LightCraft
 
+## 2026-11-01
+
+### Reset Calibration from its header
+- The Calibration header now offers Reset Section in its right-click menu. Its seven controls return to their
+  defaults in one undo step, keeping other edits in place.
+  Edit ▸ Undo restores the previous values. The preview eye, folding and Solo Mode keep their existing behavior.
+
 ## 2026-10-30
 
 ### The Flatpak may talk to the accessibility bus

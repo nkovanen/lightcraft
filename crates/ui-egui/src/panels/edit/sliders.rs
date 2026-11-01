@@ -196,6 +196,17 @@ pub(super) fn section(
         }
     }
     crate::widgets::context_menu(&resp, |ui| {
+        if id == "calibration" {
+            let item = ui.button(crate::i18n::tr("Reset Section"));
+            register(ui, "sectionMenu:reset", item.rect);
+            if item.clicked() {
+                if let Err(e) = app.run("develop.resetSection", json!({"section": id})) {
+                    app.toast(ui.ctx(), e);
+                }
+                ui.close();
+            }
+            ui.separator();
+        }
         let mut solo = app.ui.single_panel;
         let item = ui.checkbox(&mut solo, crate::i18n::tr("Solo Mode"));
         register(ui, "sectionMenu:solo", item.rect);
