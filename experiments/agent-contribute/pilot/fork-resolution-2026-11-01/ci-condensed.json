@@ -1,0 +1,68 @@
+{
+  "git_head": "b11d21de4422542534518dfa77c21914ed78bbd7",
+  "exit_code": 1,
+  "seconds": 1905.8121443018317,
+  "failed_step": "test",
+  "steps": [
+    {
+      "name": "fmt",
+      "seconds": 3.704690732,
+      "status": "ok"
+    },
+    {
+      "name": "clippy",
+      "seconds": 168.013137761,
+      "status": "ok"
+    },
+    {
+      "name": "heif",
+      "seconds": 303.586604797,
+      "status": "ok"
+    },
+    {
+      "name": "test",
+      "seconds": 1418.517772701,
+      "status": "fail"
+    },
+    {
+      "name": "parity",
+      "status": "not run"
+    },
+    {
+      "name": "layers",
+      "status": "not run"
+    },
+    {
+      "name": "assets",
+      "status": "not run"
+    },
+    {
+      "name": "wasm",
+      "status": "not run"
+    }
+  ],
+  "internal_skips": 175,
+  "skips_by_need": {
+    "corpus": 137,
+    "fonts": 28,
+    "gpu": 1,
+    "model": 8,
+    "system": 1
+  },
+  "raw_skip_records": {
+    "ci-skips-heif.jsonl": 4,
+    "ci-skips-test.jsonl": 175
+  },
+  "failure": "dialog_role::settings_is_a_dialog_too: missing Georgian glyph ქ (U+10E5) in semibold fonts",
+  "ui_library": {
+    "passed": 1771,
+    "failed": 0,
+    "ignored": 4
+  },
+  "ui_integration": {
+    "passed": 31,
+    "failed": 1,
+    "ignored": 0
+  },
+  "baseline_execution_performed": false
+}

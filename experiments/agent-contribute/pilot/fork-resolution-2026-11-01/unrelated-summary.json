@@ -1,0 +1,64 @@
+{
+  "requested_repository": "pallets/click",
+  "issue_source_repository": "pallets/click",
+  "proposed_target_repository": "pallets/click",
+  "resolution_provenance": {
+    "metadata_reads": [
+      {
+        "endpoint": "repos/pallets/click",
+        "observed": {
+          "full_name": "pallets/click",
+          "fork": false,
+          "has_issues": true
+        },
+        "fetched_at": "2026-11-01T09:20:40.739694+00:00"
+      }
+    ],
+    "reason": "requested repository has an issue tracker",
+    "execution_authority": "none"
+  },
+  "commit": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+  "fetched_at": "2026-11-01T09:20:41.255539+00:00",
+  "complete": true,
+  "errors": [],
+  "provenance": {
+    "pulls_scan": {
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    },
+    "labels_scan": {
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    },
+    "policy_state": "missing",
+    "proposed_target_pulls": null
+  },
+  "issue_scan": {
+    "complete": true,
+    "pages": 1,
+    "errors": []
+  },
+  "issue_count": 75,
+  "cli_source_commit": "87f74cbe56d485beceb1a6efb2c479e25ce8c621",
+  "cli_version": "0.2.0",
+  "prepared_source": {
+    "repository": "pallets/click",
+    "default_branch": "main",
+    "commit": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+    "fetched_at": "2026-11-01T09:20:46.764052+00:00",
+    "instructions_sha256": "366e469f21442e1eb6a851348b48543d9bf2bfef94357c9132fefcc2e4570a42",
+    "issue": 373,
+    "issue_url": "https://github.com/pallets/click/issues/373",
+    "issue_updated_at": "2025-01-06T08:31:11Z",
+    "issue_sha256": "bd05f1c902dda5a7fec78a3d1d5dcbdc2a6bdf3aba457ef387cff3eb2021cf4b"
+  },
+  "prepared_execution": {
+    "mode": "pending",
+    "target_repository": "",
+    "authorized_by": "",
+    "authorization_evidence": ""
+  },
+  "skill_or_cli_modified": false
+}

@@ -1,0 +1,16 @@
+{
+  "argv": [
+    "/home/nikovanen/.paseo/worktrees/2w8rbbj7/agent-contribute-pilot/target/agent-fork-iteration/debug/deps/it-31903ecf0ed8ff7c",
+    "--exact",
+    "dialog_role::settings_is_a_dialog_too",
+    "--nocapture"
+  ],
+  "cwd": "/home/nikovanen/.paseo/worktrees/2w8rbbj7/agent-contribute-pilot/crates/ui-egui",
+  "git_head": "b11d21de4422542534518dfa77c21914ed78bbd7",
+  "started_at": "2026-11-01T09:46:51.043808+00:00",
+  "finished_at": "2026-11-01T09:46:52.173957+00:00",
+  "exit_code": 101,
+  "log_sha256": "e179afec23549bb2c044fd96e0eefd9df54bd7d7745f8a18e13bc607dca9a897",
+  "baseline_execution_performed": false,
+  "scope_note": "Failure reproduced on final product head; test, font/theme/settings paths and Cargo.lock have no diff from 07301cbd. No font or test behavior changed."
+}

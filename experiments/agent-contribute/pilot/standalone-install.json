@@ -1,0 +1,17 @@
+{
+  "cli_version": "0.1.0",
+  "installed_outside_lightcraft": true,
+  "test_count": 45,
+  "unknown_schema_rejected": true,
+  "existing_adapter_preserved": true,
+  "generic_adapter_sha256": "aeab9c59aa99d6a0487280aeed5538d492af2eccc4233646f02328f331bb3b1a",
+  "automatic_updates": false,
+  "final_core_sha256": "2190f63070f04abfe526a932dfa902f403f22f372c99ba731bffeac85dd8a595",
+  "tool_versions": {
+    "python": "3.12.3",
+    "git": "2.43.0",
+    "gh": "2.45.0",
+    "setuptools": "84.2.1",
+    "wheel": "0.48.0"
+  }
+}

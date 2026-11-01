@@ -1,0 +1,76 @@
+{
+  "cli_version": "0.1.0",
+  "source_pr1_commit": "0e449b199f5868c7217a6b9e66d93cc5fd18c833",
+  "repository": "pallets/click",
+  "source_commit": "2247b35ea1c47c727d7a06e51fa280e12a863ff6",
+  "complete": true,
+  "issue_count": 75,
+  "issue_scan": {
+    "complete": true,
+    "pages": 1,
+    "errors": []
+  },
+  "provenance": {
+    "pulls_scan": {
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    },
+    "labels_scan": {
+      "complete": true,
+      "pages": 1,
+      "errors": []
+    },
+    "policy_state": "missing"
+  },
+  "approval_counts": {
+    "candidate": 75
+  },
+  "inspected_issue": 373,
+  "draft_schema_valid": true,
+  "execution_ready": false,
+  "upstream_submission_ready": false,
+  "fork_completion_ready": false,
+  "distribution_unchanged": true,
+  "skill_sha256": "aeab9c59aa99d6a0487280aeed5538d492af2eccc4233646f02328f331bb3b1a",
+  "core_sha256": "2190f63070f04abfe526a932dfa902f403f22f372c99ba731bffeac85dd8a595",
+  "boundary": "Read-only discovery, inspect, prepare and verification demonstrated; no implementation or contribution to this repository attempted. A draft spec is intentionally incomplete.",
+  "raw_discovery_sha256": "f158f3965d72f569c6d3f1d1b2fa16292664475db5b092d1d7ab7eb99640cb0f",
+  "runs": [
+    {
+      "argv": [
+        "agent-contrib",
+        "inspect",
+        "pallets/click#373"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-01T08:38:31.379404+00:00",
+      "finished_at": "2026-11-01T08:38:36.673841+00:00",
+      "output_file": "unrelated-inspect.json"
+    },
+    {
+      "argv": [
+        "agent-contrib",
+        "prepare",
+        "pallets/click#373",
+        "--output",
+        "/home/nikovanen/Downloads/agent-contrib/validation-runs/final-heads/unrelated-task.json"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-11-01T08:38:36.673856+00:00",
+      "finished_at": "2026-11-01T08:38:41.936509+00:00",
+      "output_file": "unrelated-prepare.json"
+    },
+    {
+      "argv": [
+        "agent-contrib",
+        "verify",
+        "/home/nikovanen/Downloads/agent-contrib/validation-runs/final-heads/unrelated-task.json"
+      ],
+      "exit_code": 1,
+      "started_at": "2026-11-01T08:38:41.936538+00:00",
+      "finished_at": "2026-11-01T08:38:47.041333+00:00",
+      "output_file": "unrelated-verify.json"
+    }
+  ]
+}

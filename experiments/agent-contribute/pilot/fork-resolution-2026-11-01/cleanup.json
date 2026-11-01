@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-01T09:48:38.190499+00:00",
+  "removed_owned_build_cache": "/home/nikovanen/.paseo/worktrees/2w8rbbj7/agent-contribute-pilot/target/agent-fork-iteration",
+  "removed_trial_only_path_symlink": "/home/nikovanen/.local/bin/agent-contrib",
+  "retained": [
+    "validation-runs/fork-resolution raw logs and reports",
+    "target/ci original report and skip files",
+    "/tmp/agent-contrib-v02-env installed wheel",
+    "/tmp/agent-contrib-fresh-v02-20261101 agent artifacts",
+    "pilot screenshot artifacts and all Git worktrees"
+  ]
+}

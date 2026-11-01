@@ -1,0 +1,209 @@
+{
+  "schema_version": "0.1",
+  "status": "draft",
+  "source": {
+    "repository": "storytold/lightcraft",
+    "default_branch": "main",
+    "commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "fetched_at": "2026-11-01T09:25:58.821326+00:00",
+    "instructions_sha256": "10ce7e1c4821246376ff53f61380968a73d43ce04191124ac9031bb258989c66",
+    "issue": 3479,
+    "issue_url": "https://github.com/storytold/lightcraft/issues/3479",
+    "issue_updated_at": "2026-10-31T16:49:09Z",
+    "issue_sha256": "08f49a31c9ce5117f414b39676ba4ab00cda281185184f70f19f11eba6b988c3"
+  },
+  "scope": {
+    "allowed_paths": [
+      "crates/ui-egui/src/state.rs",
+      "crates/ui-egui/src/state/settings.rs",
+      "crates/ui-egui/src/i18n.rs",
+      "crates/ui-egui/src/i18n/tests.rs",
+      "crates/ui-egui/src/app.rs",
+      "crates/ui-egui/src/panels/right/info.rs",
+      "crates/ui-egui/src/panels/detail/info.rs",
+      "crates/ui-egui/src/tests/info_dialogs.rs",
+      "docs/localization.md",
+      "docs/parity-checklist.md",
+      "docs/gaps.md",
+      "docs/whats-new.md"
+    ],
+    "prohibited_paths": [
+      ".github/*",
+      "experiments/*",
+      "contributors/*",
+      "assets/*",
+      "Cargo.toml",
+      "Cargo.lock",
+      "crates/catalog/*",
+      "crates/engine/*",
+      "crates/develop/*",
+      "crates/pipeline/*",
+      "crates/gpu/*",
+      "xtask/*",
+      "docs/brand/*"
+    ]
+  },
+  "objective": "Proposed starter subset of storytold/lightcraft#3479: let a person keep the English interface and explicitly choose 24-hour capture-time display through ui.json, independently of language. Preserve current presentation when the preference is absent. The proposed implementation target is nkovanen/lightcraft only; execution is not yet authorized.",
+  "behavior_criteria": [
+    {
+      "id": "B1",
+      "description": "A documented persisted UI preference can select 24-hour capture-time display while language remains English; for example a valid 22:11:11 capture time displays 22:11:11 without PM, while English labels remain English."
+    },
+    {
+      "id": "B2",
+      "description": "Existing ui.json files without the new preference retain the current language-dependent display. The preference survives a UiState serialize/deserialize round trip."
+    },
+    {
+      "id": "B3",
+      "description": "Both the right Info panel and detail photo information use the selected presentation; midnight, noon, date-only values and malformed/non-ASCII input are covered without adding a panic path."
+    },
+    {
+      "id": "B4",
+      "description": "The preference changes presentation only: capture metadata, stored timestamps, sorting/group keys, catalog data and exports remain unchanged."
+    },
+    {
+      "id": "B5",
+      "description": "docs/localization.md documents the exact ui.json key and supported values; affected parity/gap descriptions and release notes accurately state that this is only the time-format starter subset."
+    }
+  ],
+  "code_locations": [
+    "crates/ui-egui/src/state.rs",
+    "crates/ui-egui/src/state/settings.rs",
+    "crates/ui-egui/src/i18n.rs",
+    "crates/ui-egui/src/i18n/tests.rs",
+    "crates/ui-egui/src/app.rs",
+    "crates/ui-egui/src/panels/right/info.rs",
+    "crates/ui-egui/src/panels/detail/info.rs",
+    "docs/localization.md"
+  ],
+  "constraints": [
+    "This remains a draft: the actual instruction was only Go help nkovanen/lightcraft. Keep execution.mode pending and authorization fields blank until the user authorizes this task and target.",
+    "Source policies and acceptance come from storytold/lightcraft at the pinned source commit, not from a fork policy. No explicit upstream agent-approval policy exists; candidate status is not approval.",
+    "Use existing UI settings persistence and formatting paths. Keep English and each existing locale behavior unchanged unless the new option is explicitly selected. Choose the exact key/value spelling during implementation review and document it consistently.",
+    "Follow pinned AGENTS.md and CLAUDE.md: clean-room, pure Rust, no new panic/unsafe paths, checked input handling, chrono for calendar/date conversion, and existing crate layers.",
+    "Review the checkout and all validation scripts before running any of the proposed argv. Run the stricter full cargo xtask ci gate required by AGENTS.md and the PR template; report actual failures and internal skips honestly.",
+    "Before implementation, inspect Git status and create an isolated worktree and dedicated branch from an authenticated source base, verifying fork/upstream remotes. Do not run checkout code as part of this discovery-only task.",
+    "Only one issue/subset per change. The existing fork protocol PR #1 mentions #3479 as discovery evidence; its body says it contains no LightCraft product changes. Treat the link as provenance, and refresh overlap checks before implementation."
+  ],
+  "prohibited_changes": [
+    "No OS regional-setting detection, number separators, units, date-layout redesign, new languages or Settings UI picker in this starter subset.",
+    "No metadata rewrite, timezone conversion, catalog migration, pipeline/render changes or global default changes.",
+    "No new dependencies, media/font assets, network calls, spawned product processes, CI or xtask gate changes.",
+    "No push, PR creation/update, issue comment, merge or upstream publication without a separate actual mandate."
+  ],
+  "validation": [
+    {
+      "id": "V1",
+      "kind": "tests",
+      "argv": [
+        "cargo",
+        "test",
+        "-p",
+        "lightcraft-ui-egui",
+        "--lib",
+        "time_format",
+        "--",
+        "--nocapture"
+      ],
+      "success": "At least one executed regression test (name containing time_format) covers preference round-trip/default compatibility, English 24-hour display and midnight/noon/date-only/malformed inputs; exit 0 and zero internal skips. Demonstrate that the new behavior assertion fails without the implementation."
+    },
+    {
+      "id": "V2",
+      "kind": "check",
+      "argv": [
+        "cargo",
+        "check",
+        "-p",
+        "lightcraft-web",
+        "--target",
+        "wasm32-unknown-unknown"
+      ],
+      "success": "WASM consumer compiles successfully, exit 0 and no skipped checks."
+    },
+    {
+      "id": "V3",
+      "kind": "check",
+      "argv": [
+        "cargo",
+        "xtask",
+        "ci"
+      ],
+      "success": "Full repository quality gate exits 0; retain target/ci/report.json and summary.md, record actual executed test counts and every internal skip. Any skip or unavailable stage remains an unresolved completion gate."
+    }
+  ],
+  "prerequisites": [
+    {
+      "id": "P1",
+      "description": "Complete source and target discovery, source policy inspection and overlap scans.",
+      "status": "satisfied",
+      "evidence": "CLI 0.2.0 discover and inspect reported complete=true, no errors, no exclusions or duplicate PR matches for #3479. Requested fork has issues disabled; source is its immediate parent storytold/lightcraft."
+    },
+    {
+      "id": "P2",
+      "description": "Manual ownership/timeline and current implementation review.",
+      "status": "satisfied",
+      "evidence": "Read #3479 discussion and timeline: no assignment or human claim; fork PR #1 is a protocol experiment referencing earlier discovery, not a product fix. Read pinned i18n::display_time, catalog dates::display_time, UiState and its defaults: English delegates to AM/PM output and UiState has language but no independent time preference. Last 100 recently updated closed upstream PRs had no #3479/regional/time-format title/body match; this is a bounded check, not proof of absence."
+    },
+    {
+      "id": "P3",
+      "description": "Actual user authorization for local implementation of this starter subset in nkovanen/lightcraft.",
+      "status": "pending",
+      "evidence": "No execution or publication authority supplied; original request is preserved in constraints and execution remains pending."
+    },
+    {
+      "id": "P4",
+      "description": "Before execution, finish reviewing the full checkout/callers, available local-only plan documents and relevant specs; review test/build scripts, establish isolated worktree/base, and provision required toolchain/validation capabilities.",
+      "status": "pending",
+      "evidence": "Read-only pinned file snapshots are available locally. No checkout build or test has run; plan/ is gitignored and absent from the remote tree. Toolchain, GPU/corpus/fonts and browser visual validation availability are unverified."
+    },
+    {
+      "id": "P5",
+      "description": "Review the proposed subset, exact option design and definition of done; refresh source and overlap checks immediately before implementation.",
+      "status": "pending",
+      "evidence": "Configuration-only 24-hour English use is explicitly suggested by the issue, but this contract is still draft and the exact schema spelling is proposed work."
+    }
+  ],
+  "approval": {
+    "status": "candidate",
+    "policy_path": ".agent-contrib.json",
+    "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "matched_labels": [],
+    "reason": "No explicit agent approval policy exists at the default branch snapshot"
+  },
+  "execution": {
+    "mode": "pending",
+    "target_repository": "nkovanen/lightcraft",
+    "authorized_by": "",
+    "authorization_evidence": ""
+  },
+  "discovery": {
+    "complete": true,
+    "duplicate_prs": [],
+    "warnings": [
+      "All rankings are deterministic heuristics, not model predictions."
+    ]
+  },
+  "done": {
+    "criteria_ids": [
+      "B1",
+      "B2",
+      "B3",
+      "B4",
+      "B5"
+    ],
+    "validation_ids": [
+      "V1",
+      "V2",
+      "V3"
+    ],
+    "independent_review_required": true,
+    "human_signoff_required": true
+  },
+  "evidence": {
+    "required": true,
+    "contract_hash_algorithm": "sha256"
+  },
+  "questions": [
+    "Do you authorize local implementation of this configuration-only 24-hour-time subset of #3479 in nkovanen/lightcraft, with existing defaults preserved and no publication?"
+  ]
+}

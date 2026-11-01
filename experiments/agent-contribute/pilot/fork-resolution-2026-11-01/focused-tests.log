@@ -1,0 +1,8 @@
+     Running unittests src/lib.rs (target/agent-fork-iteration/debug/deps/lightcraft_ui_egui-4effd24db7559bc8)
+
+running 3 tests
+test tests::slider_reset::section_reset_from_calibration_header_preserves_other_edits_and_is_undoable ... ok
+test tests::slider_reset::section_reset_is_not_offered_on_other_headers_and_their_menus_preserve_edits ... ok
+test tests::slider_reset::section_reset_keeps_header_disclosure_eye_and_solo_mode_working ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 1772 filtered out; finished in 10.79s

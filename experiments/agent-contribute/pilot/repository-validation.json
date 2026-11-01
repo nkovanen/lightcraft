@@ -1,0 +1,105 @@
+{
+  "report_kind": "interrupted repository validation; not a passed gate",
+  "source_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+  "argv": [
+    "cargo",
+    "xtask",
+    "ci"
+  ],
+  "environment": {
+    "CARGO_TARGET_DIR": "target/agent-orchestrator",
+    "CARGO_BUILD_JOBS": "2"
+  },
+  "status": "interrupted",
+  "exit_code": null,
+  "completed_stages": [
+    "fmt",
+    "clippy",
+    "heif"
+  ],
+  "interrupted_stage": "workspace tests, lightcraft_gpu unit-test binary",
+  "remaining_not_verified": [
+    "remainder of workspace tests",
+    "doctests",
+    "parity",
+    "wasm"
+  ],
+  "final_report_produced": false,
+  "skip_records": {
+    "skips-test.jsonl": {
+      "count": 42,
+      "needs": {
+        "system": 1,
+        "corpus": 27,
+        "model": 7,
+        "fonts": 6,
+        "gpu": 1
+      }
+    },
+    "skips-heif.jsonl": {
+      "count": 4,
+      "needs": {
+        "corpus": 3,
+        "system": 1
+      }
+    }
+  },
+  "completed_test_binary_summaries": [
+    "test result: ok. 88 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.62s",
+    "test result: ok. 68 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 4.33s",
+    "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "test result: ok. 29 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.14s",
+    "test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 1433 filtered out; finished in 0.63s",
+    "test result: ok. 90 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.28s",
+    "test result: ok. 284 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 2.30s",
+    "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s",
+    "test result: ok. 36 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 13.47s",
+    "test result: ok. 87 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.68s",
+    "test result: ok. 64 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 3.96s",
+    "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s",
+    "test result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "test result: ok. 27 passed; 0 failed; 2 ignored; 0 measured; 0 filtered out; finished in 0.68s",
+    "test result: ok. 0 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "test result: ok. 41 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.09s",
+    "test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "test result: ok. 37 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s",
+    "test result: ok. 1450 passed; 0 failed; 6 ignored; 0 measured; 0 filtered out; finished in 61.93s",
+    "test result: ok. 0 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "test result: ok. 77 passed; 0 failed; 3 ignored; 0 measured; 0 filtered out; finished in 0.04s",
+    "test result: ok. 28 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.55s",
+    "test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s",
+    "test result: ok. 49 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s"
+  ],
+  "raw_log_sha256": "52736d2fdfcb05af35006977d54fb6d9c35df0134d60187ad9a5fbf2c42ea732",
+  "additional_completed_checks": [
+    {
+      "argv": [
+        "cargo",
+        "xtask",
+        "layers"
+      ],
+      "exit_code": 0,
+      "seconds": 0.577
+    },
+    {
+      "argv": [
+        "cargo",
+        "xtask",
+        "assets"
+      ],
+      "exit_code": 0,
+      "seconds": 0.141
+    }
+  ],
+  "pilot_gate": {
+    "status": "interrupted while queued; no stages started",
+    "argv": [
+      "cargo",
+      "xtask",
+      "ci"
+    ],
+    "reason": "Waited for the shared CI slot; worker/session closed before a full result."
+  },
+  "interpretation": "Protocol and focused product tests passed independently. Full LightCraft CI remains incomplete; no completion-ready or merge-ready claim."
+}

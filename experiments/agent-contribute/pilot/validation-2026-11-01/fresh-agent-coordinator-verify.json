@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.1",
+  "schema_valid": true,
+  "execution_ready": false,
+  "evidence_valid": false,
+  "upstream_submission_ready": false,
+  "fork_completion_ready": false,
+  "approval": {
+    "status": "candidate",
+    "policy_path": ".agent-contrib.json",
+    "policy_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+    "matched_labels": [],
+    "reason": "No explicit agent approval policy exists at the default branch snapshot"
+  },
+  "errors": [
+    "Contract is draft or has unanswered questions",
+    "Prerequisites are not satisfied with evidence",
+    "Explicit local execution authorization is missing",
+    "Execution mode is pending"
+  ],
+  "evidence_errors": [
+    "No execution evidence, independent review or human signoff provided"
+  ],
+  "evidence_trust": "self-attested; identity and truth are not authenticated",
+  "publication": "This CLI never publishes. Readiness is not authorization to push or open a PR.",
+  "contract_sha256": "d9fd0c6857b405cc0c5d9fac8d63c281c6051e97e4cb386557aed3617067cf1c",
+  "live_complete": true,
+  "duplicates": [],
+  "execution_authorization": {
+    "mode": "pending",
+    "target_repository": "nkovanen/lightcraft",
+    "authorized_by": "",
+    "authorization_evidence": "Paseo user follow-up message 4500cc25-8ae7-4ff7-96ad-7ddd7442924d: authorizes only read-only parent discovery and local specification; explicitly forbids implementation, pushes, comments and PRs. This is evidence of the current restriction, not execution authority."
+  }
+}

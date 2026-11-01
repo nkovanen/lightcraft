@@ -1,0 +1,49 @@
+{
+  "requested_repository": "nkovanen/lightcraft",
+  "issue_source_repository": "storytold/lightcraft",
+  "cli_version": "0.2.0",
+  "schema_version": "0.1",
+  "source_commit": "07301cbd1e1cab5c152228891d9c9ed87e263003",
+  "actual_instruction": "Go help nkovanen/lightcraft.",
+  "execution_authority": "discovery, ranking, inspection and reviewable draft only; no implementation or publication",
+  "ranked_candidates": [
+    {
+      "rank": 1,
+      "reference": "nkovanen/lightcraft#3479",
+      "recommendation": "Draft a config-only 24-hour display subset; confirmed missing preference, small presentation scope. Execution authorization and implementation validation pending."
+    },
+    {
+      "rank": 2,
+      "reference": "nkovanen/lightcraft#2773",
+      "recommendation": "Alternative UI cleanup, but contains multiple requested changes and needs agreed scope."
+    },
+    {
+      "rank": 3,
+      "reference": "nkovanen/lightcraft#2000",
+      "recommendation": "Alternative update indicator, but mechanism and network/user-consent behavior are not specified."
+    }
+  ],
+  "rejected": [
+    {
+      "reference": "nkovanen/lightcraft#2085",
+      "reason": "Already implemented: browser install_browser_language and startup caller in pinned web.rs; issue comment confirms merged PR #2181/v0.15.0. Also has historical ownership claim."
+    },
+    {
+      "reference": "nkovanen/lightcraft#1908",
+      "reason": "Already addressed by upstream PR #2046/#1930; linked commit 36c538a2df117e051a8a7aec301fdd3df8e50176 states this, and pinned crop.rs selects the drag zone from press_origin."
+    },
+    {
+      "reference": "nkovanen/lightcraft#2813",
+      "reason": "Explicitly downstream AUR packaging work; requested fix is outside the proposed repository, and issue rejects changing upstream release defaults."
+    },
+    {
+      "reference": "nkovanen/lightcraft#2254",
+      "reason": "Requires maintainer choice and external script access; CI changes conflict with a small product-fix scope."
+    }
+  ],
+  "limits": [
+    "No source edits, executable checkout, implementation tests, external writes or publication performed.",
+    "CLI scans open PRs only; manual discussion/timeline/source checks detected already-fixed candidates.",
+    "Only the latest 100 updated closed upstream PRs were manually keyword-filtered for #3479; rerun ownership and overlap checks before starting."
+  ]
+}

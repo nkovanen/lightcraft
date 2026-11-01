@@ -1,0 +1,15 @@
+
+running 1 test
+test dialog_role::settings_is_a_dialog_too ... FAILED
+
+failures:
+
+failures:
+    dialog_role::settings_is_a_dialog_too
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 31 filtered out; finished in 1.12s
+
+
+thread 'dialog_role::settings_is_a_dialog_too' (2978528) panicked at /home/nikovanen/.cargo/git/checkouts/egui-057e9a0485eda407/6d518fc/crates/epaint/src/text/fonts.rs:846:9:
+No glyph for "ქ" (U+10E5) in Name("semibold"). Installed fonts: ["Inter-SemiBold", "Ubuntu-Light", "egui-icons", "NotoEmoji-Regular", "emoji-icon-font"]. Install a font that has it, add a `FontProvider` or `GlyphRasterizer` that can draw it, or allow tofu with `MissingGlyphPolicy::Tofu`.
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

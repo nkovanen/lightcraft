@@ -1,0 +1,143 @@
+{
+  "source_commit": "87f74cbe56d485beceb1a6efb2c479e25ce8c621",
+  "commands": [
+    {
+      "label": "protocol-commit-tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "cwd": "/home/nikovanen/Downloads/agent-contrib/lightcraft/experiments/agent-contribute",
+      "started_at": "2026-11-01T09:19:54.621773+00:00",
+      "finished_at": "2026-11-01T09:19:55.788670+00:00",
+      "exit_code": 0,
+      "log": "protocol-commit-tests.log",
+      "log_sha256": "cbc4c47ee6f6b663cf05062f4c0d1a412fc896309b6f4999bc0882043ee3eeb7"
+    },
+    {
+      "label": "standalone-tests",
+      "argv": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-v"
+      ],
+      "cwd": "/tmp/agent-contrib-v02-source",
+      "started_at": "2026-11-01T09:19:55.802438+00:00",
+      "finished_at": "2026-11-01T09:19:56.995214+00:00",
+      "exit_code": 0,
+      "log": "standalone-tests.log",
+      "log_sha256": "dc615833bdd0e5318097df046a0f286de0a8b1ee5f7bd6993d2e7f8809adb1fc"
+    },
+    {
+      "label": "wheel-build",
+      "argv": [
+        "/tmp/agent-contrib-install-env/bin/python",
+        "-m",
+        "pip",
+        "wheel",
+        "--no-deps",
+        "--no-build-isolation",
+        "--wheel-dir",
+        "/tmp/agent-contrib-v02-wheels",
+        "/tmp/agent-contrib-v02-source"
+      ],
+      "cwd": "/tmp",
+      "started_at": "2026-11-01T09:19:56.995271+00:00",
+      "finished_at": "2026-11-01T09:19:57.690997+00:00",
+      "exit_code": 0,
+      "log": "wheel-build.log",
+      "log_sha256": "1c47a87a30385ed319e350a10f435a1ddbcc1fc86d5d7fff378d224eec5d5b91"
+    },
+    {
+      "label": "venv-create",
+      "argv": [
+        "python3",
+        "-m",
+        "venv",
+        "/tmp/agent-contrib-v02-env"
+      ],
+      "cwd": "/tmp",
+      "started_at": "2026-11-01T09:19:57.691050+00:00",
+      "finished_at": "2026-11-01T09:19:59.665353+00:00",
+      "exit_code": 0,
+      "log": "venv-create.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "wheel-install",
+      "argv": [
+        "/tmp/agent-contrib-v02-env/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "--no-index",
+        "--no-deps",
+        "/tmp/agent-contrib-v02-wheels/agent_contrib-0.2.0-py3-none-any.whl"
+      ],
+      "cwd": "/tmp",
+      "started_at": "2026-11-01T09:19:59.665696+00:00",
+      "finished_at": "2026-11-01T09:19:59.951695+00:00",
+      "exit_code": 0,
+      "log": "wheel-install.log",
+      "log_sha256": "dc8245953f956d049ac66a460b5f0d94847651acd2f2da1d0126bde328784573"
+    },
+    {
+      "label": "installed-version",
+      "argv": [
+        "/tmp/agent-contrib-v02-env/bin/agent-contrib",
+        "--version"
+      ],
+      "cwd": "/tmp",
+      "started_at": "2026-11-01T09:19:59.951748+00:00",
+      "finished_at": "2026-11-01T09:19:59.997922+00:00",
+      "exit_code": 0,
+      "log": "installed-version.log",
+      "log_sha256": "1f930dd1f133c1f97a94fe3acb8db34372cf4c01ffdb2b3ff4ca72f9494121e9"
+    },
+    {
+      "label": "installed-instructions",
+      "argv": [
+        "/tmp/agent-contrib-v02-env/bin/agent-contrib",
+        "instructions"
+      ],
+      "cwd": "/tmp",
+      "started_at": "2026-11-01T09:19:59.997954+00:00",
+      "finished_at": "2026-11-01T09:20:00.046041+00:00",
+      "exit_code": 0,
+      "log": "installed-instructions.log",
+      "log_sha256": "77a6fec4e01781ac632d306f5d8922ab7a46d9c88117314d7dbda392b3a41b12"
+    },
+    {
+      "label": "skill-export",
+      "argv": [
+        "/tmp/agent-contrib-v02-env/bin/agent-contrib",
+        "skill",
+        "--output",
+        "/tmp/agent-contrib-fresh-v02-20261101/.agents/skills/agent-contribute/SKILL.md"
+      ],
+      "cwd": "/tmp",
+      "started_at": "2026-11-01T09:20:00.046147+00:00",
+      "finished_at": "2026-11-01T09:20:00.095261+00:00",
+      "exit_code": 0,
+      "log": "skill-export.log",
+      "log_sha256": "6946e118f7e62fba52cf1dad369f6c592ca7f3bc168e7ad24687f33a6fe4d1a8"
+    }
+  ],
+  "wheel": "agent_contrib-0.2.0-py3-none-any.whl",
+  "wheel_sha256": "589d0588dc9d25bd3aa7c6bc3b4f4166215cec8b362c4562e85807f8fda8ca9e",
+  "distribution_sha256": {
+    "__init__.py": "1af28a3fe0fa1499734c9dccb40d20d8972fa356bf06076128e3a8bca1e529b5",
+    "__main__.py": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d",
+    "adapters/agent-contribute/SKILL.md": "aeab9c59aa99d6a0487280aeed5538d492af2eccc4233646f02328f331bb3b1a",
+    "cli.py": "96a044b3da45e0a2aedbe740800252b0c7e49e30f07972e58f13931f236173d7",
+    "core.py": "6794b0e5c44d5517a5963fa0d117e683ba0a5b855eca17652ea2ef483de7463d",
+    "evidence.schema.json": "e0e1e39d53801c9772279bbdb676f4fb740362b09645c8dbddbb7d4bf1adad7f",
+    "instructions.md": "fb92ce0e27a6998782e0a5088c3c4510f0d57f31bb1e5bb33a581dc7d4be5983",
+    "task.schema.json": "580d58c2eac40a772090cf741a0dfeed30fccb75847268d6e06a9172eadc0da9"
+  }
+}
