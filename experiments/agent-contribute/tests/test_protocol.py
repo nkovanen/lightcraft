@@ -40,7 +40,10 @@ class FakeGitHub:
             raise core.ProtocolError('api_error', 'GitHub read failed')
         path = endpoint.split('?')[0]
         if path == 'repos/acme/photos':
-            return {'full_name': 'acme/photos', 'default_branch': 'main'}
+            return {'full_name': 'acme/photos', 'default_branch': 'main', 'fork': False, 'has_issues': True}
+        if path == 'repos/human/photos':
+            return {'full_name': 'human/photos', 'default_branch': 'main', 'fork': True,
+                    'has_issues': False, 'parent': {'full_name': 'acme/photos'}}
         if path.endswith('/commits/main'):
             return {'sha': getattr(self, 'commit', 'a' * 40)}
         if '/compare/' in path:
@@ -585,13 +588,13 @@ class AdapterTests(unittest.TestCase):
     def test_version_reports_semantic_cli_version(self):
         status, output = self.invoke('--version')
         self.assertEqual(status, 0)
-        self.assertEqual(output.strip(), '0.1.0')
+        self.assertEqual(output.strip(), '0.2.0')
 
     def test_instructions_are_local_packaged_protocol(self):
         status, output = self.invoke('instructions')
         self.assertEqual(status, 0)
         result = json.loads(output)
-        self.assertEqual(result['cli_version'], '0.1.0')
+        self.assertEqual(result['cli_version'], '0.2.0')
         self.assertEqual(result['supported_schema_versions'], ['0.1'])
         self.assertGreater(len(result['workflow_markdown']), 100)
 

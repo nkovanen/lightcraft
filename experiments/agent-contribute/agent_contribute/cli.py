@@ -64,10 +64,12 @@ def main(argv=None):
         elif args.command in ('inspect', 'prepare'):
             result = core.inspect_issue(args.reference)
             code = 0 if result['complete'] else 1
-            if args.command == 'prepare':
+            if args.command == 'prepare' and 'source' in result:
                 task = core.prepare(result)
                 write_new_json(args.output, task)
-                result = {'output': str(args.output), 'complete': result['complete'], 'contract': task,
+                context = {k: result[k] for k in ('requested_repository', 'issue_source_repository',
+                                                  'proposed_target_repository', 'resolution_provenance', 'reference')}
+                result = {**context, 'output': str(args.output), 'complete': result['complete'], 'contract': task,
                           'warning': 'Draft saved; inspect and review before execution'}
         else:
             result = core.verify(core.read_json(args.contract),

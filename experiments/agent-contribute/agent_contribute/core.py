@@ -193,13 +193,69 @@ def issue_hash(issue):
                            'assignees': sorted(user['login'] for user in issue.get('assignees', []))})
 
 
-def repository_snapshot(repository, client):
-    repository = parse_repository(repository)
+def repository_metadata(repository, client):
     meta = require(client.request('repos/' + repository), dict, 'repository metadata')
-    canonical = require(meta.get('full_name'), str, 'canonical repository')
-    parse_repository(canonical)
-    if canonical.lower() != repository.lower():
+    canonical = parse_repository(require(meta.get('full_name'), str, 'canonical repository'))
+    if canonical.casefold() != repository.casefold():
         raise ProtocolError('repository_moved', 'Repository identity changed; use its canonical identifier')
+    require(meta.get('fork'), bool, 'fork flag')
+    require(meta.get('has_issues'), bool, 'issue tracker flag')
+    return meta
+
+
+def resolve_repository(repository, client):
+    """Resolve a tracker for reading only; neither metadata nor policy grants authority."""
+    context = {'requested_repository': repository, 'issue_source_repository': None,
+               'proposed_target_repository': repository,
+               'resolution_provenance': {'metadata_reads': [], 'reason': 'unresolved',
+                                         'execution_authority': 'none'}}
+    metadata = None
+    try:
+        metadata = repository_metadata(repository, client)
+        def record(repo, meta):
+            observed = {k: meta[k] for k in ('full_name', 'fork', 'has_issues')}
+            context['resolution_provenance']['metadata_reads'].append(
+                {'endpoint': 'repos/' + repo, 'observed': observed,
+                 'fetched_at': dt.datetime.now(dt.timezone.utc).isoformat()})
+        record(repository, metadata)
+        if metadata['has_issues']:
+            context['issue_source_repository'] = metadata['full_name']
+            context['resolution_provenance']['reason'] = 'requested repository has an issue tracker'
+        else:
+            if not metadata['fork']:
+                raise ProtocolError('no_issue_tracker', 'Requested repository has no issue tracker and is not a fork')
+            parent = require(metadata.get('parent'), dict, 'fork parent')
+            parent_name = parse_repository(require(parent.get('full_name'), str, 'fork parent name'))
+            if parent_name.casefold() == repository.casefold():
+                raise ProtocolError('api_shape', 'Fork parent cannot be the requested repository')
+            context['resolution_provenance']['metadata_reads'][0]['observed']['parent'] = {'full_name': parent_name}
+            metadata = repository_metadata(parent_name, client)
+            record(parent_name, metadata)
+            if not metadata['has_issues']:
+                raise ProtocolError('no_issue_tracker', 'Fork parent has no issue tracker; further parent hops are unsupported')
+            context['issue_source_repository'] = metadata['full_name']
+            context['resolution_provenance']['reason'] = 'disabled fork tracker; reading the immediate parent tracker'
+    except ProtocolError as exc:
+        context.update(complete=False, errors=[str(exc)])
+    return context, metadata
+
+
+def target_pr_scan(source, target, issue, client):
+    listing = paginate(client, f'repos/{target}/pulls?state=open')
+    errors = list(listing['errors'])
+    try:
+        duplicates = duplicate_prs(source, issue, index_prs(listing['items']), pr_repository=target)
+    except ProtocolError as exc:
+        duplicates = []
+        errors.append(str(exc))
+    return {'repository': target, 'endpoint': f'repos/{target}/pulls?state=open',
+            'complete': not errors, 'pages': listing['pages'], 'errors': errors}, duplicates
+
+
+def repository_snapshot(repository, client, meta=None):
+    repository = parse_repository(repository)
+    meta = meta if meta is not None else repository_metadata(repository, client)
+    canonical = meta['full_name']
     branch = require(meta.get('default_branch'), str, 'default branch')
     commit_data = require(client.request(f'repos/{repository}/commits/{quote(branch, safe="")}'), dict, 'commit')
     commit = require(commit_data.get('sha'), str, 'commit sha')
@@ -321,13 +377,14 @@ def index_prs(prs):
     return index
 
 
-def duplicate_prs(repository, issue, index):
+def duplicate_prs(repository, issue, index, *, pr_repository=None):
     number = issue['number']
     words = set(re.findall(r'[a-z][a-z0-9]{3,}', issue['title'].lower())) - {'with', 'from', 'this', 'that', 'when', 'fixes'}
     checklist = set(re.findall(r'\b[A-Z][A-Z0-9]{1,15}(?:-[A-Z0-9]{1,20}){1,5}\b', issue['title'] + '\n' + issue['body']))
     findings = []
     for pr in index:
-        direct = (repository.casefold(), number) in pr['references'] or number in pr['local']
+        direct = ((repository.casefold(), number) in pr['references'] or
+                  (repository.casefold() == (pr_repository or repository).casefold() and number in pr['local']))
         overlap = len(words.intersection(pr['words'])) >= 2 or bool(checklist.intersection(pr['checklist']))
         if direct or overlap:
             findings.append({'number': pr['number'], 'url': pr['url'],
@@ -392,45 +449,93 @@ def inspect_from_snapshot(snapshot, issue):
 def inspect_issue(reference, client=None):
     repository, number = parse_issue(reference)
     client = client or GitHub()
-    snapshot = repository_snapshot(repository, client)
-    issue = issue_data(client.request(f'repos/{repository}/issues/{number}'), number)
-    return inspect_from_snapshot(snapshot, issue)
+    context, meta = resolve_repository(repository, client)
+    context['reference'] = repository + '#' + str(number)
+    if context.get('complete') is False:
+        return context
+    try:
+        source = context['issue_source_repository']
+        snapshot = repository_snapshot(source, client, meta)
+        issue = issue_data(client.request(f'repos/{source}/issues/{number}'), number)
+        result = inspect_from_snapshot(snapshot, issue)
+        if source.casefold() != repository.casefold():
+            scan, duplicates = target_pr_scan(source, repository, issue, client)
+            result['provenance']['proposed_target_pulls'] = scan
+            result['duplicates'].extend(duplicates)
+            result['ranking'] = ranking(issue, result['duplicates'])
+            result['errors'].extend(scan['errors'])
+            result['complete'] = result['complete'] and scan['complete']
+            if not scan['complete']:
+                result['duplicate_scan'] = 'unknown'
+            if duplicates:
+                result['warnings'].append('Proposed target open PR overlap requires resolution before execution')
+        return {**result, **context}
+    except ProtocolError as exc:
+        return {**context, 'complete': False, 'errors': [str(exc)]}
 
 
 def discover(repository, client=None):
     repository = parse_repository(repository)
     client = client or GitHub()
-    snapshot = repository_snapshot(repository, client)
-    listing = paginate(client, f'repos/{repository}/issues?state=open')
+    context, meta = resolve_repository(repository, client)
+    if context.get('complete') is False:
+        return {**context, 'issues': []}
+    try:
+        snapshot = repository_snapshot(context['issue_source_repository'], client, meta)
+    except ProtocolError as exc:
+        return {**context, 'complete': False, 'errors': [str(exc)], 'issues': []}
+    source = snapshot['repository']
+    listing = paginate(client, f'repos/{source}/issues?state=open')
     issues, errors = [], list(snapshot['errors']) + listing['errors']
+    target_scan, target_index = None, []
+    if source.casefold() != repository.casefold():
+        target_listing = paginate(client, f'repos/{repository}/pulls?state=open')
+        target_errors = list(target_listing['errors'])
+        try:
+            target_index = index_prs(target_listing['items'])
+        except ProtocolError as exc:
+            target_errors.append(str(exc))
+        target_scan = {'repository': repository, 'endpoint': f'repos/{repository}/pulls?state=open',
+                       'complete': not target_errors, 'pages': target_listing['pages'], 'errors': target_errors}
+        errors.extend(target_errors)
     for item in listing['items']:
         if 'pull_request' in item:
             continue
         try:
+            item = issue_data(item)
             inspected = inspect_from_snapshot(snapshot, item)
-            issues.append({'number': item['number'], 'untrusted_title': safe_text(item['title']),
-                           **{k: inspected[k] for k in ('approval', 'duplicates', 'complete', 'exclusions', 'ranking')}})
+            duplicates = inspected['duplicates'] + duplicate_prs(source, item, target_index, pr_repository=repository)
+            issues.append({'number': item['number'], 'reference': repository + '#' + str(item['number']),
+                           'issue_url': item['html_url'], 'untrusted_title': safe_text(item['title']),
+                           **{k: inspected[k] for k in ('approval', 'exclusions')},
+                           'duplicates': duplicates,
+                           'complete': inspected['complete'] and listing['complete'] and (target_scan is None or target_scan['complete']),
+                           'ranking': ranking(item, duplicates)})
             if not inspected['complete']:
                 errors.extend(inspected['errors'])
         except ProtocolError as exc:
             errors.append(str(exc))
     issues.sort(key=lambda item: (bool(item['exclusions']), bool(item['duplicates']),
                                   item['ranking']['success_likelihood']['value'] == 'low', item['number']))
-    return {'schema_version': VERSION, 'repository': snapshot['repository'], 'commit': snapshot['commit'],
+    return {**context, 'schema_version': VERSION, 'repository': source, 'commit': snapshot['commit'],
             'fetched_at': snapshot['fetched_at'], 'complete': not errors, 'errors': sorted(set(errors)),
             'issues': issues, 'instructions': snapshot['instructions'], 'spec_paths': snapshot['spec_paths'],
-            'provenance': {name: snapshot[name] for name in ('pulls_scan', 'labels_scan', 'policy_state')},
+            'provenance': {**{name: snapshot[name] for name in ('pulls_scan', 'labels_scan', 'policy_state')},
+                           'proposed_target_pulls': target_scan},
             'issue_scan': {k: v for k, v in listing.items() if k != 'items'},
             'limits': {'pages_per_list': MAX_PAGES, 'instruction_files': 60},
-            'warning': 'Candidates only. Unknown, partial, excluded or overlapping work is not ready.'}
+            'warning': 'Candidates only. Resolution proposes a target; it never grants execution authority.'}
 
 
 def prepare(inspected):
+    target = inspected.get('proposed_target_repository', '')
+    if target.casefold() == inspected['source']['repository'].casefold():
+        target = ''
     return {'schema_version': VERSION, 'status': 'draft', 'source': inspected['source'],
             'scope': {'allowed_paths': [], 'prohibited_paths': []},
             'objective': '', 'behavior_criteria': [], 'code_locations': [], 'constraints': [],
             'prohibited_changes': [], 'validation': [], 'prerequisites': [], 'approval': inspected['approval'],
-            'execution': {'mode': 'pending', 'target_repository': '', 'authorized_by': '', 'authorization_evidence': ''},
+            'execution': {'mode': 'pending', 'target_repository': target, 'authorized_by': '', 'authorization_evidence': ''},
             'discovery': {'complete': inspected['complete'], 'duplicate_prs': inspected['duplicates'],
                           'warnings': (inspected['warnings'] + inspected['errors'] + inspected['exclusions'])[:100]},
             'done': {'criteria_ids': [], 'validation_ids': [], 'independent_review_required': True,
@@ -642,13 +747,50 @@ def verify(task, evidence=None, repo_dir=None, client=None):
     digest = canonical_hash(task)
     result['contract_sha256'] = digest
     source = task['source']
+    target = task['execution']['target_repository']
+    result.update(requested_repository=None,
+                  issue_source_repository=source['repository'], proposed_target_repository=target,
+                  resolution_provenance={'requested_repository': 'original request not stored in schema 0.1',
+                                         'issue_source_repository': 'contract.source.repository',
+                                         'proposed_target_repository': 'contract.execution.target_repository',
+                                         'execution_authority': 'separate reviewed assertion; never inferred'})
     try:
         current = inspect_issue(source['repository'] + '#' + str(source['issue']), client)
+        if 'source' not in current:
+            raise ProtocolError('refresh_incomplete', '; '.join(current['errors']))
+        if target and target.casefold() != source['repository'].casefold():
+            parse_repository(target)
+            try:
+                target_meta = repository_metadata(target, client)
+                parent = target_meta.get('parent')
+                parent_name = parent.get('full_name') if isinstance(parent, dict) else None
+                current['provenance']['proposed_target_metadata'] = {
+                    'endpoint': 'repos/' + target,
+                    'observed': {k: target_meta[k] for k in ('full_name', 'fork', 'has_issues')},
+                    'fetched_at': dt.datetime.now(dt.timezone.utc).isoformat()}
+                if task['execution']['mode'] == 'fork-experiment':
+                    parent_name = parse_repository(parent_name)
+                    if not target_meta['fork'] or parent_name.casefold() != source['repository'].casefold():
+                        raise ProtocolError('fork_relationship', 'Target must be an immediate fork of the issue source')
+                    current['provenance']['proposed_target_metadata']['observed']['parent'] = {'full_name': parent_name}
+            except ProtocolError as exc:
+                current['errors'].append('Fork target metadata or relationship unresolved for ' + target + ': ' + str(exc))
+                current['complete'] = False
+            issue = {'number': source['issue'], 'title': current['untrusted_issue']['title'],
+                     'body': current['untrusted_issue']['body']}
+            scan, duplicates = target_pr_scan(source['repository'], target, issue, client)
+            current['duplicates'].extend(duplicates)
+            current['errors'].extend(scan['errors'])
+            current['complete'] = current['complete'] and scan['complete']
+            current['provenance']['proposed_target_pulls'] = scan
+        result['live_provenance'] = current['provenance']
+        result['source_resolution_provenance'] = current['resolution_provenance']
         result['approval'] = current['approval']
         result['live_complete'] = current['complete']
         result['duplicates'] = current['duplicates']
         if not current['complete']:
             errors.append('Live discovery is incomplete')
+            errors.extend('Live discovery: ' + error for error in current['errors'])
         if current['duplicates'] or current['exclusions']:
             errors.append('Live issue is excluded or overlaps an open PR')
         for key in ('issue_sha256', 'instructions_sha256', 'default_branch', 'repository', 'issue_url'):
@@ -657,6 +799,7 @@ def verify(task, evidence=None, repo_dir=None, client=None):
     except ProtocolError as exc:
         errors.append('Live GitHub refresh failed: ' + str(exc))
         current = None
+        result['live_complete'] = False
     if task['status'] != 'reviewed' or task['questions']:
         errors.append('Contract is draft or has unanswered questions')
     for key in ('objective', 'behavior_criteria', 'code_locations', 'constraints', 'prohibited_changes', 'validation'):

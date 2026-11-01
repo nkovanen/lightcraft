@@ -12,25 +12,38 @@ worker. No provider adapter, account sharing or model API is required.
 
 ## From a request to a reviewable change
 
-1. Resolve the source and allowed target repositories from the user's request and
-   verified Git remotes. Run discovery and inspect several candidates. Retain the
-   snapshot timestamps and completeness flags. Read the repository's policies,
-   specification index, agent files and relevant code at the captured base commit.
+1. Run `discover OWNER/REPO` using the repository the user requested. The CLI
+   resolves a disabled-issue fork to its immediate parent's enabled tracker for
+   read-only discovery, retaining the requested repository as a proposed target.
+   Read the explicit requested/source/proposed-target roles and metadata provenance;
+   resolution grants no execution authority. Rank and inspect several candidates
+   using the emitted references. Retain timestamps and completeness flags. Read the
+   actual source's pinned policies, specification index, agent files and relevant
+   code at the captured base commit. Malformed metadata and partial reads stay
+   unresolved; do not guess another source or execution target.
 2. Check issue references, subject matter, checklist identifiers and touched files
    against open PRs. Automatic overlap detection is a screening aid; inspect likely
    matches. Claimed/duplicated tasks are excluded. GitHub's
    [issues API also returns PRs](https://docs.github.com/en/rest/issues/issues#list-repository-issues),
    and [pagination matters](https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api).
-   A partial scan cannot establish that no duplicate exists.
+   Both source and proposed-target open PRs, including drafts, are checked. A bare
+   issue reference belongs to the PR's own repository; qualified references use
+   the actual source. A partial scan cannot establish that no duplicate exists.
+   This version also blocks on one's own matching draft; no exemption is inferred.
 3. Prepare a draft contract, then fill the objective, acceptance criteria, code
    locations, prohibitions, prerequisites, validation and definition of done from
    the issue **and inspected code**. Explicitly label assumptions and partial scope.
    Review the contract before setting its status to reviewed. This is scope review,
    not a maintainer's authorization to contribute upstream.
-4. Verify permission. Maintainer-approved tasks require the repository's explicit
-   policy and matching approval signal. Candidates stay pending for upstream.
-   Separately record the human's permission to experiment in a specified fork.
-   The CLI never creates a claim/approval comment or an issue in a fork.
+4. After ranking and preparing a concrete draft, verify execution permission
+   against the actual user instruction. Source-approved tasks require the source's
+   explicit policy and matching approval signal; that approval does not authorize
+   fork execution. Candidates stay pending for upstream. Separately record the
+   human's permission to experiment in a specified fork, which verification must
+   observe as an immediate fork of the source. Request missing execution authority
+   only for the reviewable task and proposed target; honor existing authority
+   without routine confirmation. Generated drafts keep execution pending and blank
+   authority. The CLI never creates a claim/approval comment or an issue in a fork.
 5. Create a branch/worktree from the agreed base. Inspect build scripts and
    dependencies before tests: a build command runs project code. Use normal,
    unprivileged development tools, no production secrets, and isolated caches and

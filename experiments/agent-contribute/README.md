@@ -56,13 +56,34 @@ CLI version and supported schema versions. It works from any directory.
 The workflow and trust boundaries live in that packaged resource. In particular,
 ordinary issues are candidates, fork execution and upstream eligibility are
 separate, evidence is self-attested and no command executes remote instructions.
-Task and evidence schemas live in the package. The CLI version is `0.1.0`;
+Task and evidence schemas live in the package. The CLI version is `0.2.0`;
 only exact schema version `0.1` is supported. Updates are explicit; no updater or
 schema migration runs automatically. This POC is not on a package registry.
 
 Run tests with `python3 -m unittest discover -v` from this directory. The package
 can be extracted independently; root product code, dependencies and CI do not
 participate in this experiment.
+
+## Disabled issue trackers on forks
+
+Use the repository the user requested in every command. When its metadata says
+it is a fork with issues disabled, the CLI discovers issues and pinned policies
+from its immediate parent's enabled tracker. It preserves the requested fork as
+a proposed target and emits task references such as `requested/repo#123`, with
+the actual source issue URL separately. Enabled issue trackers keep their own
+issues. Resolution never grants execution authority.
+
+Responses name `requested_repository`, `issue_source_repository`, and
+`proposed_target_repository`, with metadata provenance. Draft contracts keep the
+actual source in `source.repository` and a proposed fork that differs from the
+source in `execution.target_repository`; ordinary and enabled-tracker fork drafts
+leave the target blank as before. Execution remains pending with blank authority.
+Verification reports the saved source/target but leaves `requested_repository`
+null: schema `0.1` does not store the original request.
+Both repositories' open PRs are checked, including drafts; verification rechecks
+the saved target and requires an immediate source/target fork relationship for
+fork execution. Incomplete reads fail closed. A matching existing draft,
+including one's own, remains an overlap blocker in this version.
 
 ## Pilot and extraction evidence
 
@@ -95,4 +116,4 @@ policy, discovered work remains a candidate. The tool does not install the polic
 or create labels. See [the workflow](docs/workflow.md#maintainer-integration) for
 the maintainer's remaining responsibilities.
 
-Latest follow-up: [final-commit CI, fresh-agent trial and unrelated-repository results](pilot/validation-2026-11-01/REPORT.md). The bare-request fork trial required one parent-discovery hint; PR #2 full CI failed at clippy. Both remain drafts.
+Latest follow-up: [final-commit CI, fresh-agent trial and unrelated-repository results](pilot/validation-2026-11-01/REPORT.md). That historical bare-request fork trial required one parent-discovery hint; PR #2 full CI failed at clippy. Both remain drafts.

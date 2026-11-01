@@ -1,4 +1,4 @@
-# Installed contribution protocol 0.1.0
+# Installed contribution protocol 0.2.0
 
 This resource is authoritative workflow guidance shipped with the CLI/library.
 The exported skill is a thin adapter. Repository names, quality commands,
@@ -12,7 +12,12 @@ the adapter. The CLI is portable across agent runtimes and runs no model.
    repository and authorized target. A JSON authorization claim cannot create
    permission the user never gave. Installation or skill availability does not
    grant credentials, code execution, publication or permission to contact others.
-2. Run `discover owner/repo`, then `inspect owner/repo#N`. Read completeness,
+2. Run `discover owner/repo`, rank the candidates, then use an emitted task
+   `reference` with `inspect` and `prepare`. The CLI reads repository metadata:
+   a fork with a disabled issue tracker uses its immediate parent's enabled
+   tracker read-only; ordinary repositories and forks with enabled trackers use
+   their own issues. Missing or malformed metadata, a parent without a tracker,
+   or incomplete reads are blockers, never reasons to guess a source. Read completeness,
    exclusions, approval provenance, current open PRs, pinned repository policies,
    instruction files and specification paths. Read relevant specifications using
    ordinary read-only tools. Unknown or partial checks remain unresolved.
@@ -21,7 +26,14 @@ the adapter. The CLI is portable across agent runtimes and runs no model.
    Review it against the actual issue and repository policies. Fill scoped
    behavior criteria, allowed/prohibited paths, validation, prerequisites and
    definition of done. Resolve ambiguity explicitly; do not invent acceptance.
-   Record actual execution authorization separately from upstream approval.
+   Record actual execution authorization separately from source approval.
+   A bare request to help a repository allows discovery, ranking, inspection and
+   preparation of a reviewable draft; repository resolution never authorizes
+   implementation in either repository. Do that read-only work before requesting
+   missing execution permission, and make any request about the concrete task
+   and proposed target. Honor execution authority already supplied by the user
+   without routine reconfirmation. Leave mode pending and authority fields blank
+   until the real instruction covers execution.
 4. `verify FILE` reports the digest and execution gates. It returns exit 1 until
    completion evidence exists, even if execution_ready is true. An agent may
    implement only when execution readiness and its real user instruction allow
@@ -59,7 +71,7 @@ the adapter. The CLI is portable across agent runtimes and runs no model.
 
 ## Versioning, installation and updates
 
-CLI/library releases use semantic versions; this installed release is 0.1.0.
+CLI/library releases use semantic versions; this installed release is 0.2.0.
 Task and evidence formats use the separate exact version string `0.1`.
 `instructions.supported_schema_versions` describes the installed support set;
 unknown versions fail closed. There is no silent schema migration, downgrade,
@@ -77,6 +89,38 @@ repository preserves this package boundary; no harness or hosted backend is
 required. The package has no Python runtime dependencies; Git and GitHub's gh
 CLI must be installed separately. GitHub credentials and their scopes remain
 with gh; use an account/token appropriate for read-only work.
+
+## Repository resolution and proposed targets
+
+`discover`, `inspect`, and the `prepare` response expose
+`requested_repository`, `issue_source_repository`, `proposed_target_repository`
+and `resolution_provenance`. Metadata provenance records validated names, real
+boolean `fork` / `has_issues` flags, the observed parent when used, GET endpoints
+and read times. An unresolved source is `null`; errors retain the requested and
+proposed repository. `discover` task references use the requested `owner/repo#N`
+so `inspect` and `prepare` preserve the proposed target; `issue_url` points to
+the actual source issue. Source policy, pinned instructions and approval always
+come from the actual issue source, never from the requested fork's policy.
+
+These fields belong to response wrappers. Task/evidence schema `0.1` is unchanged:
+`task.source.repository` stores the actual source and
+`task.execution.target_repository` stores the proposed fork only when it differs
+from the source; ordinary and enabled-tracker fork drafts leave that field blank
+as before. Generated execution mode remains `pending`, with blank authorization
+fields. `verify` reports the source and proposed target from those contract
+fields, but `requested_repository` is `null` with explicit provenance: the original
+request is not stored in schema `0.1` and cannot be recovered. It refreshes the
+source and target PR checks. In `fork-experiment` mode it also
+requires live metadata showing the target is an immediate fork of the source.
+A source repository that is itself a fork with an enabled tracker retains the
+ordinary source-mode behavior; its parent is not an inferred target.
+
+Both source and proposed-target open PR lists include drafts. A bare `#N` in a
+PR belongs to that PR's repository; qualified references and issue URLs match
+the actual issue source. Topic and checklist overlaps remain conservative
+blockers. Failed, malformed or partial scans block readiness. An existing PR,
+including the contributor's own draft, remains an unresolved overlap: this
+version has no own-PR exemption or overlap-resolution override.
 
 ## Approval and execution are separate
 
@@ -117,8 +161,8 @@ A reviewed contract must separately record `execution`:
 ```
 
 `pending` is the generated default. `fork-experiment` requires an explicitly
-authorized target different from the source repository; it never grants
-upstream eligibility. `upstream-contribution` requires the same source/target
+authorized target verified as an immediate fork of the source repository; it never grants
+source approval or upstream eligibility. `upstream-contribution` requires the same source/target
 and live repository approval. These local authorization fields are reviewed
 assertions, not authentication. They cannot override the host agent's actual
 instructions, credential boundaries or publication permissions.

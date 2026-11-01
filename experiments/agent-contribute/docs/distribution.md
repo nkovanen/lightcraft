@@ -47,8 +47,8 @@ temporary Git checkouts; live network access is an explicit integration exercise
   changing `schema_version` by hand is not a migration. Hash-bound evidence must
   be regenerated when a reviewed contract changes.
 
-Repository requirements are discovered at runtime from the requested GitHub
-repository's pinned default branch. The repository may change its policy between
+Repository requirements are discovered at runtime from the actual issue source's
+pinned default branch after read-only repository resolution. The repository may change its policy between
 discovery and submission; verification refreshes the relevant source data and
 approval. This is separate from updating the installed tool itself.
 
@@ -59,3 +59,14 @@ harnesses. A public package release, signed release artifacts, managed cross-hos
 installation, migration tooling and protected-CI attestations are future work.
 The POC demonstrates extraction by installing a copy outside LightCraft and running
 the package and tests there; see the pilot report for the actual result.
+
+## CLI 0.2.0
+
+Adds metadata-based, one-hop issue-source resolution for forks with disabled
+trackers, explicit source/proposed-target response context, and source plus target
+open-PR checks. Task and evidence schema support remains exactly `0.1`. The thin
+Skill adapter is byte-identical to 0.1.0; refresh the installed CLI and its workflow
+resource deliberately. New response fields do not belong in strict contracts.
+Legacy contracts remain readable; live target checks can now expose fork draft
+overlaps or unverified fork relationships that older verification missed. No
+automatic upgrade, authorization, own-PR exemption or schema migration is added.
