@@ -186,7 +186,7 @@ fn section_reset_from_calibration_header_preserves_other_edits_and_is_undoable()
     assert_eq!(value(&h, "light.exposure"), 1.25);
     assert_eq!(h.app.session.develop_of(id).unwrap().profile, before.profile);
     let mut unrelated = (*h.app.session.develop_of(id).unwrap()).clone();
-    unrelated.calibration = before.calibration.clone();
+    unrelated.calibration = before.calibration;
     assert_eq!(&unrelated, before.as_ref(), "every setting outside Calibration is preserved");
     assert_eq!(h.app.session.undo.len() - undo, 1);
     assert_eq!(h.app.ui.open_sections, ["calibration"]);
